@@ -1,6 +1,8 @@
 // สร้างตัวแปรสำหรับเก็บ instance ของ QR scanner
 let qrCodeScanner = null;
 
+let currentCamera = 'environment'; // เริ่มต้นใช้กล้องหลัง
+
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 function startQRScanner() {
     if (qrCodeScanner === null) {
@@ -8,7 +10,7 @@ function startQRScanner() {
     }
 
     qrCodeScanner.start(
-        { facingMode: "environment" },
+        { facingMode: currentCamera },
         {
             fps: 10,
             qrbox: 250,
@@ -47,6 +49,17 @@ function handleImageUpload(event) {
             document.querySelector('.upload-box').appendChild(img);
         };
         reader.readAsDataURL(file);
+    }
+}
+
+// เพิ่มฟังก์ชันสลับกล้อง
+function switchCamera() {
+    if (qrCodeScanner) {
+        stopQRScanner();
+        currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
+        setTimeout(() => {
+            startQRScanner();
+        }, 100);
     }
 }
 
@@ -94,5 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
             input.onchange = handleImageUpload;
             input.click();
         });
+    }
+
+    const switchCameraBtn = document.getElementById('switchCameraBtn');
+    if (switchCameraBtn) {
+        switchCameraBtn.addEventListener('click', switchCamera);
     }
 });
