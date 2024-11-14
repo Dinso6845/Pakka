@@ -4,19 +4,26 @@ let qrCodeScanner = null;
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
-        // สร้าง scanner ใหม่ถ้ายังไม่มี
-        if (!qrCodeScanner) {
-            qrCodeScanner = new Html5Qrcode("qr-reader");
+        // ตรวจสอบว่ามีการเข้าถึงกล้องได้หรือไม่
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const cameras = devices.filter(device => device.kind === 'videoinput');
+        
+        if (cameras.length === 0) {
+            throw new Error('ไม่พบกล้องในอุปกรณ์');
         }
+
+        // สร้าง scanner ใหม่
+        qrCodeScanner = new Html5Qrcode("qr-reader");
 
         const config = {
             fps: 10,
-            qrbox: { width: 250, height: 250 }
+            qrbox: { width: 250, height: 250 },
+            aspectRatio: 1
         };
 
         // เริ่มสแกนด้วยกล้องหลัง
         await qrCodeScanner.start(
-            { facingMode: 'environment' }, // กำหนดให้ใช้กล้องหลังเท่านั้น
+            { facingMode: "environment" },
             config,
             (decodedText) => {
                 document.getElementById("input1").value = decodedText;
@@ -24,6 +31,7 @@ async function startQRScanner() {
                 alert("สแกน QR Code สำเร็จ: " + decodedText);
             },
             (errorMessage) => {
+                // ไม่ต้องแสดง error ในการสแกนปกติ
                 console.log(errorMessage);
             }
         );
@@ -33,15 +41,25 @@ async function startQRScanner() {
 
     } catch (error) {
         console.error("Error starting QR scanner:", error);
-        alert("ไม่สามารถเริ่มการสแกนได้ กรุณาลองใหม่อีกครั้ง");
+        alert("ไม่สามารถเริ่มการสแกนได้: " + error.message);
+        
+        // หากเกิดข้อผิดพลาด ให้ทำความสะอาด instance เก่า
+        if (qrCodeScanner) {
+            await qrCodeScanner.clear();
+            qrCodeScanner = null;
+        }
     }
 }
 
 // ฟังก์ชันสำหรับหยุดการสแกน
 async function stopQRScanner() {
     try {
-        if (qrCodeScanner && qrCodeScanner.isScanning) {
-            await qrCodeScanner.stop();
+        if (qrCodeScanner) {
+            if (qrCodeScanner.isScanning) {
+                await qrCodeScanner.stop();
+            }
+            await qrCodeScanner.clear();
+            qrCodeScanner = null;
             document.getElementById('qr-reader').style.display = 'none';
         }
     } catch (error) {
@@ -54,16 +72,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener สำหรับปุ่ม Camera
     const cameraBtn = document.getElementById("cameraBtn");
     if (cameraBtn) {
-        cameraBtn.addEventListener("click", () => {
-            // ขออนุญาตใช้กล้องและเริ่มสแกนทันที
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-                .then(() => {
-                    startQRScanner();
-                })
-                .catch((error) => {
-                    console.error("Error accessing camera:", error);
-                    alert("ไม่สามารถเข้าถึงกล้องได้ กรุณาตรวจสอบการอนุญาตใช้งานกล้อง");
+        cameraBtn.addEventListener("click", async () => {
+            try {
+                // หยุดการสแกนที่กำลังทำงานอยู่ (ถ้ามี)
+                await stopQRScanner();
+                
+                // ขออนุญาตใช้กล้อง
+                await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "environment",
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
                 });
+                
+                // เริ่มการสแกนใหม่
+                await startQRScanner();
+                
+            } catch (error) {
+                console.error("Error accessing camera:", error);
+                alert("ไม่สามารถเข้าถึงกล้องได้ กรุณาตรวจสอบการอนุญาตใช้งานกล้อง");
+            }
         });
     }
 
