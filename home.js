@@ -5,16 +5,17 @@ let currentCamera = 'environment'; // เริ่มต้นใช้กล้
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
-        if (qrCodeScanner === null) {
+        // สร้าง scanner ใหม่ถ้ายังไม่มี
+        if (!qrCodeScanner) {
             qrCodeScanner = new Html5Qrcode("qr-reader");
         }
 
         const config = {
             fps: 10,
-            qrbox: 250,
-            aspectRatio: 1.0
+            qrbox: { width: 250, height: 250 }
         };
 
+        // เริ่มสแกน
         await qrCodeScanner.start(
             { facingMode: currentCamera },
             config,
@@ -24,13 +25,14 @@ async function startQRScanner() {
                 alert("สแกน QR Code สำเร็จ: " + decodedText);
             },
             (errorMessage) => {
-                console.log("Error scanning QR Code: ", errorMessage);
+                console.log(errorMessage);
             }
         );
 
         // แสดง QR reader และปุ่มสลับกล้อง
         document.getElementById('qr-reader').style.display = 'block';
         document.getElementById('camera-switch-container').style.display = 'block';
+
     } catch (error) {
         console.error("Error starting QR scanner:", error);
         alert("ไม่สามารถเริ่มการสแกนได้ กรุณาลองใหม่อีกครั้ง");
@@ -39,49 +41,58 @@ async function startQRScanner() {
 
 // ฟังก์ชันสำหรับหยุดการสแกน
 async function stopQRScanner() {
-    if (qrCodeScanner && qrCodeScanner.isScanning) {
-        try {
+    try {
+        if (qrCodeScanner && qrCodeScanner.isScanning) {
             await qrCodeScanner.stop();
             document.getElementById('qr-reader').style.display = 'none';
-        } catch (error) {
-            console.error("Error stopping QR scanner:", error);
+            document.getElementById('camera-switch-container').style.display = 'none';
         }
+    } catch (error) {
+        console.error("Error stopping QR scanner:", error);
     }
+}
+
+// ฟังก์ชันสำหรับแสดง modal เลือกกล้อง
+function showCameraSelectModal() {
+    const modal = document.getElementById('camera-select-modal');
+    modal.style.display = 'block';
+}
+
+// ฟังก์ชันสำหรับซ่อน modal
+function hideCameraSelectModal() {
+    const modal = document.getElementById('camera-select-modal');
+    modal.style.display = 'none';
 }
 
 // ฟังก์ชันสำหรับสลับกล้อง
 async function switchCamera() {
     try {
-        if (qrCodeScanner && qrCodeScanner.isScanning) {
-            await stopQRScanner();
-            currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
-            await new Promise(resolve => setTimeout(resolve, 300)); // รอให้กล้องปิดสนิท
-            await startQRScanner();
-        }
+        await stopQRScanner();
+        currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await startQRScanner();
     } catch (error) {
         console.error("Error switching camera:", error);
         alert("ไม่สามารถสลับกล้องได้ กรุณาลองใหม่อีกครั้ง");
     }
 }
 
-// เพิ่มฟังก์ชันสำหรับแสดง modal เลือกกล้อง
-function showCameraSelectModal() {
-    const modal = document.getElementById('camera-select-modal');
-    modal.style.display = 'block';
-}
-
-// เพิ่มฟังก์ชันสำหรับซ่อน modal
-function hideCameraSelectModal() {
-    const modal = document.getElementById('camera-select-modal');
-    modal.style.display = 'none';
-}
-
-// แก้ไข Event Listeners
+// Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
     // Event listener สำหรับปุ่ม Camera
     const cameraBtn = document.getElementById("cameraBtn");
     if (cameraBtn) {
-        cameraBtn.addEventListener("click", showCameraSelectModal);
+        cameraBtn.addEventListener("click", () => {
+            // ขออนุญาตใช้กล้องก่อนแสดง modal
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(() => {
+                    showCameraSelectModal();
+                })
+                .catch((error) => {
+                    console.error("Error accessing camera:", error);
+                    alert("ไม่สามารถเข้าถึงกล้องได้ กรุณาตรวจสอบการอนุญาตใช้งานกล้อง");
+                });
+        });
     }
 
     // Event listeners สำหรับปุ่มเลือกกล้อง
