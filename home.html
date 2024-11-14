@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจมิเตอร์ไฟฟ้า</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="home.css">
+
+    <!-- เพิ่มการเชื่อมโยง HTML5 QR Code Scanner -->
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <script src="home.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-text">
+            <i class="fa fa-lightbulb-o fa-lg"></i>
+            ตรวจมิเตอร์ไฟ
+        </div>
+    </nav>
+
+    <div class="container">
+        <form action="" method="post">
+            <!-- เพิ่มส่วนอัพโหลดรูป -->
+            <div class="upload-section">
+                <div class="upload-box">
+                    <i class="fa fa-camera"></i>
+                    <div class="button-group">
+                        <button id="cameraBtn" type="button">Request Camera Permissions</button>
+                        <button id="uploadBtn" type="button">Scan an Image File</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="input1">Scan QR/Bar Code</label>
+                <input type="text" id="input1" placeholder="กรอก Scan QR/Bar Code" required>
+            </div>
+
+            <div class="input-group">
+                <label for="input2">S/N มิเตอร์</label>
+                <input type="text" id="input2" placeholder="กรอก S/N มิเตอร์" required>
+            </div>
+
+            <div class="input-group">
+                <label for="input3">เลขที่ห้อง</label>
+                <input type="text" id="input3" placeholder="กรอกเลขที่ห้อง" required>
+            </div>
+
+            <div class="input-group">
+                <label for="input4">เลขมิเตอร์</label>
+                <input type="number" id="input4" placeholder="เลขมิเตอร์" required>
+            </div>
+
+            <button type="submit">submit</button>
+        </form>
+
+        <!-- ส่วนที่แสดงกล้องสำหรับสแกน QR Code -->
+        <div id="qr-reader" style="width: 100%; height: 400px;"></div>
+    </div>
+</body>
+</html>

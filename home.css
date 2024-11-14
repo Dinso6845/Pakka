@@ -1,0 +1,190 @@
+/* Global styles */
+body {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #FCCF61;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.navbar-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.fa-lightbulb-o {
+    margin-right: 8px;
+}
+
+/* Container styles */
+.container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #363636;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* Input form styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #4a4a4a;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #2d2d2d;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #FCCF61;
+    box-shadow: 0 0 5px rgba(252, 207, 97, 0.3);
+}
+
+/* Upload section styles */
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.upload-box {
+    border: 2px dashed #4a4a4a;
+    padding: 30px;
+    background-color: #2d2d2d;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-box:hover {
+    border-color: #FCCF61;
+    background-color: #323232;
+}
+
+.upload-box i {
+    font-size: 40px;
+    color: #FCCF61;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.upload-box button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 50%;
+}
+
+.upload-box button:hover {
+    background-color: #1557b0;
+}
+
+/* Submit button styles */
+form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #1557b0;
+}
+
+/* QR reader styles */
+#qr-reader {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #2d2d2d;
+    display: none;
+}
+
+/* Placeholder styles */
+::placeholder {
+    color: #888888;
+}
+
+/* Video element styles */
+video {
+    width: 100%;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+/* Image preview styles */
+.upload-box img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+/* Upload box button group styles */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* สไตล์สำหรับปุ่มกล้อง */
+#cameraBtn {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+}
+
+#cameraBtn:hover {
+    background-color: #1557b0;
+}
+
+/* สไตล์สำหรับปุ่ม upload (แบบใส) */
+#uploadBtn {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+#uploadBtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #FCCF61;
+    color: #FCCF61;
+}
+
+/* ลบส่วนนี้ออกเพราะไม่ใช้แล้ว */
+/* .upload-text {
+    ...
+} */ 
