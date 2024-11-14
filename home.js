@@ -1,25 +1,17 @@
 // สร้างตัวแปรสำหรับเก็บ instance ของ QR scanner
 let qrCodeScanner = null;
 
-// เพิ่มการตรวจสอบว่า Html5Qrcode มีอยู่จริง
-function isHtml5QrcodeSupported() {
-    return typeof Html5Qrcode !== 'undefined';
-}
-
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
         // ตรวจสอบว่า library พร้อมใช้งาน
-        if (!isHtml5QrcodeSupported()) {
+        if (typeof Html5Qrcode === 'undefined') {
             throw new Error('QR Code scanner library ไม่พร้อมใช้งาน กรุณารีเฟรชหน้าเว็บ');
         }
 
-        // ตรวจสอบว่ามีการเข้าถึงกล้องได้หรือไม่
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const cameras = devices.filter(device => device.kind === 'videoinput');
-        
-        if (cameras.length === 0) {
-            throw new Error('ไม่พบกล้องในอุปกรณ์');
+        // หยุดการสแกนที่กำลังทำงานอยู่ (ถ้ามี)
+        if (qrCodeScanner) {
+            await stopQRScanner();
         }
 
         // สร้าง scanner ใหม่
@@ -28,8 +20,12 @@ async function startQRScanner() {
         const config = {
             fps: 10,
             qrbox: { width: 250, height: 250 },
-            aspectRatio: 1
+            aspectRatio: 1.0,
+            showTorchButtonIfSupported: true
         };
+
+        // แสดง QR reader ก่อนเริ่มสแกน
+        document.getElementById('qr-reader').style.display = 'block';
 
         // เริ่มสแกนด้วยกล้องหลัง
         await qrCodeScanner.start(
@@ -46,9 +42,6 @@ async function startQRScanner() {
             }
         );
 
-        // แสดง QR reader
-        document.getElementById('qr-reader').style.display = 'block';
-
     } catch (error) {
         console.error("Error starting QR scanner:", error);
         alert("ไม่สามารถเริ่มการสแกนได้: " + error.message);
@@ -58,6 +51,7 @@ async function startQRScanner() {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
         }
+        document.getElementById('qr-reader').style.display = 'none';
     }
 }
 
@@ -84,9 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (cameraBtn) {
         cameraBtn.addEventListener("click", async () => {
             try {
-                // หยุดการสแกนที่กำลังทำงานอยู่ (ถ้ามี)
-                await stopQRScanner();
-                
                 // ขออนุญาตใช้กล้อง
                 await navigator.mediaDevices.getUserMedia({
                     video: {
@@ -96,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 
-                // เริ่มการสแกนใหม่
+                // เริ่มการสแกน
                 await startQRScanner();
                 
             } catch (error) {
