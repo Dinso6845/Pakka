@@ -1,9 +1,19 @@
 // สร้างตัวแปรสำหรับเก็บ instance ของ QR scanner
 let qrCodeScanner = null;
 
+// เพิ่มการตรวจสอบว่า Html5Qrcode มีอยู่จริง
+function isHtml5QrcodeSupported() {
+    return typeof Html5Qrcode !== 'undefined';
+}
+
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
+        // ตรวจสอบว่า library พร้อมใช้งาน
+        if (!isHtml5QrcodeSupported()) {
+            throw new Error('QR Code scanner library ไม่พร้อมใช้งาน กรุณารีเฟรชหน้าเว็บ');
+        }
+
         // ตรวจสอบว่ามีการเข้าถึงกล้องได้หรือไม่
         const devices = await navigator.mediaDevices.enumerateDevices();
         const cameras = devices.filter(device => device.kind === 'videoinput');
