@@ -4,11 +4,6 @@ let qrCodeScanner = null;
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
-        // ตรวจสอบว่า library พร้อมใช้งาน
-        if (typeof Html5Qrcode === 'undefined') {
-            throw new Error('QR Code scanner library ไม่พร้อมใช้งาน กรุณารีเฟรชหน้าเว็บ');
-        }
-
         // หยุดการสแกนที่กำลังทำงานอยู่ (ถ้ามี)
         if (qrCodeScanner) {
             await stopQRScanner();
@@ -20,11 +15,10 @@ async function startQRScanner() {
         const config = {
             fps: 10,
             qrbox: { width: 250, height: 250 },
-            aspectRatio: 1.0,
-            showTorchButtonIfSupported: true
+            aspectRatio: 1.0
         };
 
-        // แสดง QR reader ก่อนเริ่มสแกน
+        // แสดง QR reader
         document.getElementById('qr-reader').style.display = 'block';
 
         // เริ่มสแกนด้วยกล้องหลัง
@@ -37,7 +31,6 @@ async function startQRScanner() {
                 alert("สแกน QR Code สำเร็จ: " + decodedText);
             },
             (errorMessage) => {
-                // ไม่ต้องแสดง error ในการสแกนปกติ
                 console.log(errorMessage);
             }
         );
@@ -46,7 +39,6 @@ async function startQRScanner() {
         console.error("Error starting QR scanner:", error);
         alert("ไม่สามารถเริ่มการสแกนได้: " + error.message);
         
-        // หากเกิดข้อผิดพลาด ให้ทำความสะอาด instance เก่า
         if (qrCodeScanner) {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
@@ -73,28 +65,9 @@ async function stopQRScanner() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Event listener สำหรับปุ่ม Camera
     const cameraBtn = document.getElementById("cameraBtn");
     if (cameraBtn) {
-        cameraBtn.addEventListener("click", async () => {
-            try {
-                // ขออนุญาตใช้กล้อง
-                await navigator.mediaDevices.getUserMedia({
-                    video: {
-                        facingMode: "environment",
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 }
-                    }
-                });
-                
-                // เริ่มการสแกน
-                await startQRScanner();
-                
-            } catch (error) {
-                console.error("Error accessing camera:", error);
-                alert("ไม่สามารถเข้าถึงกล้องได้ กรุณาตรวจสอบการอนุญาตใช้งานกล้อง");
-            }
-        });
+        cameraBtn.addEventListener("click", startQRScanner);
     }
 
     // Event listener สำหรับปุ่ม Upload
