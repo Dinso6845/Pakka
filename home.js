@@ -64,22 +64,54 @@ async function switchCamera() {
     }
 }
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // ฟังก์ชันสำหรับเปิดกล้อง
-    async function openCamera() {
-        try {
-            await startQRScanner();
-        } catch (err) {
-            console.error("Error accessing camera:", err);
-            alert("ไม่สามารถเข้าถึงกล้องได้");
-        }
-    }
+// เพิ่มฟังก์ชันสำหรับแสดง modal เลือกกล้อง
+function showCameraSelectModal() {
+    const modal = document.getElementById('camera-select-modal');
+    modal.style.display = 'block';
+}
 
+// เพิ่มฟังก์ชันสำหรับซ่อน modal
+function hideCameraSelectModal() {
+    const modal = document.getElementById('camera-select-modal');
+    modal.style.display = 'none';
+}
+
+// แก้ไข Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
     // Event listener สำหรับปุ่ม Camera
     const cameraBtn = document.getElementById("cameraBtn");
     if (cameraBtn) {
-        cameraBtn.addEventListener("click", openCamera);
+        cameraBtn.addEventListener("click", showCameraSelectModal);
+    }
+
+    // Event listeners สำหรับปุ่มเลือกกล้อง
+    const frontCameraBtn = document.getElementById('frontCameraBtn');
+    const backCameraBtn = document.getElementById('backCameraBtn');
+
+    if (frontCameraBtn) {
+        frontCameraBtn.addEventListener('click', async () => {
+            currentCamera = 'user';
+            hideCameraSelectModal();
+            await startQRScanner();
+        });
+    }
+
+    if (backCameraBtn) {
+        backCameraBtn.addEventListener('click', async () => {
+            currentCamera = 'environment';
+            hideCameraSelectModal();
+            await startQRScanner();
+        });
+    }
+
+    // Event listener สำหรับปิด modal เมื่อคลิกพื้นหลัง
+    const modal = document.getElementById('camera-select-modal');
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideCameraSelectModal();
+            }
+        });
     }
 
     // Event listener สำหรับปุ่มสลับกล้อง
