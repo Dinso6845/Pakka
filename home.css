@@ -95,7 +95,7 @@ body {
 .upload-box button {
     padding: 8px 16px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     width: 50%;
