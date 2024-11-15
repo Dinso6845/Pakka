@@ -26,7 +26,7 @@ async function startQRScanner() {
             (decodedText) => {
                 document.getElementById("input1").value = decodedText;
                 stopQRScanner();
-                alert("สแกน QR Code สำเร็จ: " + decodedText);
+                alert("สแกน QR Code สำเร็จ");
             },
             (errorMessage) => {
                 console.log(errorMessage);
@@ -35,7 +35,7 @@ async function startQRScanner() {
 
     } catch (error) {
         console.error("Error starting QR scanner:", error);
-        alert("ไม่สามารถเริ่มการสแกนได้: " + error.message);
+        alert("ไม่สามารถเริ่มการสแกนได้");
         
         if (qrCodeScanner) {
             await qrCodeScanner.clear();
@@ -78,13 +78,13 @@ async function handleImageUpload(event) {
 
             // แสดงผลลัพธ์ที่สแกนได้
             document.getElementById("input1").value = decodedText;
-            alert("สแกน QR Code สำเร็จ: " + decodedText);
+            alert("สแกน QR Code สำเร็จ");
             
             // เคลียร์ตัวสแกน
             await html5QrCode.clear();
         } catch (error) {
             console.error("Error scanning file:", error);
-            alert("ไม่สามารถสแกนภาพได้: " + error.message);
+            alert("ไม่สามารถสแกนภาพได้");
         }
     }
 }
