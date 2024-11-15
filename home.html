@@ -6,8 +6,8 @@
     <title>ตรวจมิเตอร์ไฟฟ้า</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="home.css">
-
-    <!-- เปลี่ยนการเชื่อมโยง HTML5 QR Code Scanner เป็นเวอร์ชันล่าสุด -->
+    
+    <!-- เชื่อมโยง HTML5 QR Code Scanner -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <script src="home.js" defer></script>
 </head>
@@ -56,9 +56,60 @@
         </form>
 
         <!-- ส่วนที่แสดงกล้องสำหรับสแกน QR Code -->
-        <div id="qr-reader" style="display: none;">
-            <div class="scan-frame"></div>
-        </div>
+        <div id="qr-reader" style="width: 300px; display: none;"></div>
     </div>
+
+    <script>
+        // ฟังก์ชันเมื่อสแกนสำเร็จ
+        function onScanSuccess(decodedText, decodedResult) {
+            document.getElementById("input1").value = decodedText;
+            stopScanner();
+        }
+
+        function onScanError(errorMessage) {
+            console.log(`Scan error: ${errorMessage}`);
+        }
+
+        // เริ่มต้นการสแกน
+        let html5QrcodeScanner;
+        document.getElementById("cameraBtn").addEventListener("click", function() {
+            const qrReader = document.getElementById("qr-reader");
+            qrReader.style.display = "block";
+            
+            html5QrcodeScanner = new Html5Qrcode("qr-reader");
+            html5QrcodeScanner.start(
+                { facingMode: "environment" },  // ใช้กล้องด้านหลังถ้ามี
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                onScanSuccess,
+                onScanError
+            );
+        });
+
+        function stopScanner() {
+            const qrReader = document.getElementById("qr-reader");
+            qrReader.style.display = "none";
+            html5QrcodeScanner.stop().then(() => {
+                html5QrcodeScanner.clear();
+            }).catch(err => {
+                console.error("Stop failed:", err);
+            });
+        }
+
+        // สแกนจากไฟล์รูปภาพ
+        document.getElementById("uploadBtn").addEventListener("click", function() {
+            Html5Qrcode.getCameras().then(devices => {
+                const qrReader = new Html5Qrcode("qr-reader");
+                qrReader.scanFile().then(decodedText => {
+                    document.getElementById("input1").value = decodedText;
+                    alert(`Scanned result: ${decodedText}`);
+                }).catch(err => {
+                    console.error("Error scanning file:", err);
+                });
+            }).catch(err => console.error("Error getting cameras:", err));
+        });
+    </script>
 </body>
 </html>

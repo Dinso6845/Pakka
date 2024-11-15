@@ -27,11 +27,11 @@ async function startQRScanner() {
             config,
             (decodedText) => {
                 document.getElementById("input1").value = decodedText;
-                stopQRScanner();
+                stopQRScanner(); // หยุดการสแกนเมื่อสแกนสำเร็จ
                 alert("สแกน QR Code สำเร็จ: " + decodedText);
             },
             (errorMessage) => {
-                console.log(errorMessage);
+                console.log("Scan error:", errorMessage);
             }
         );
 
@@ -39,6 +39,7 @@ async function startQRScanner() {
         console.error("Error starting QR scanner:", error);
         alert("ไม่สามารถเริ่มการสแกนได้: " + error.message);
         
+        // เคลียร์ตัวสแกนในกรณีที่เกิดข้อผิดพลาด
         if (qrCodeScanner) {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
@@ -63,6 +64,30 @@ async function stopQRScanner() {
     }
 }
 
+// ฟังก์ชันสำหรับจัดการการอัพโหลดรูปภาพและสแกน
+async function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const imageUrl = URL.createObjectURL(file);
+
+        try {
+            // สร้าง instance ใหม่ของ Html5Qrcode
+            const html5QrCode = new Html5Qrcode("qr-reader");
+            const decodedText = await html5QrCode.scanFile(file, true);
+
+            // แสดงผลลัพธ์ที่สแกนได้
+            document.getElementById("input1").value = decodedText;
+            alert("สแกน QR Code สำเร็จ: " + decodedText);
+            
+            // เคลียร์ตัวสแกน
+            await html5QrCode.clear();
+        } catch (error) {
+            console.error("Error scanning file:", error);
+            alert("ไม่สามารถสแกนภาพได้: " + error.message);
+        }
+    }
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
     const cameraBtn = document.getElementById("cameraBtn");
@@ -83,18 +108,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// ฟังก์ชันสำหรับจัดการการอัพโหลดรูปภาพ
-function handleImageUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.style.maxWidth = '100%';
-            document.querySelector('.upload-box').appendChild(img);
-        };
-        reader.readAsDataURL(file);
-    }
-}
+    
