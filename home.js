@@ -4,34 +4,32 @@ let qrCodeScanner = null;
 // ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
-        // หยุดการสแกนที่กำลังทำงานอยู่ (ถ้ามี)
         if (qrCodeScanner) {
             await stopQRScanner();
         }
 
-        // สร้าง scanner ใหม่
-        qrCodeScanner = new Html5Qrcode("qr-reader");
+        // ซ่อนเนื้อหาเดิมและแสดงกล้อง
+        document.getElementById('upload-content').style.display = 'none';
+        document.getElementById('camera-container').style.display = 'block';
+
+        qrCodeScanner = new Html5Qrcode("camera-container");
 
         const config = {
             fps: 10,
-            qrbox: { width: 250, height: 250 },
+            qrbox: { width: 200, height: 200 },
             aspectRatio: 1.0
         };
 
-        // แสดง QR reader
-        document.getElementById('qr-reader').style.display = 'block';
-
-        // เริ่มสแกนด้วยกล้องหลัง
         await qrCodeScanner.start(
             { facingMode: "environment" },
             config,
             (decodedText) => {
                 document.getElementById("input1").value = decodedText;
-                stopQRScanner(); // หยุดการสแกนเมื่อสแกนสำเร็จ
+                stopQRScanner();
                 alert("สแกน QR Code สำเร็จ: " + decodedText);
             },
             (errorMessage) => {
-                console.log("Scan error:", errorMessage);
+                console.log(errorMessage);
             }
         );
 
@@ -39,12 +37,13 @@ async function startQRScanner() {
         console.error("Error starting QR scanner:", error);
         alert("ไม่สามารถเริ่มการสแกนได้: " + error.message);
         
-        // เคลียร์ตัวสแกนในกรณีที่เกิดข้อผิดพลาด
         if (qrCodeScanner) {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
         }
-        document.getElementById('qr-reader').style.display = 'none';
+        // แสดงเนื้อหาเดิมเมื่อเกิดข้อผิดพลาด
+        document.getElementById('camera-container').style.display = 'none';
+        document.getElementById('upload-content').style.display = 'flex';
     }
 }
 
@@ -57,8 +56,10 @@ async function stopQRScanner() {
             }
             await qrCodeScanner.clear();
             qrCodeScanner = null;
-            document.getElementById('qr-reader').style.display = 'none';
         }
+        // แสดงเนื้อหาเดิมเมื่อหยุดสแกน
+        document.getElementById('camera-container').style.display = 'none';
+        document.getElementById('upload-content').style.display = 'flex';
     } catch (error) {
         console.error("Error stopping QR scanner:", error);
     }

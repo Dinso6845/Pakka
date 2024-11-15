@@ -24,10 +24,18 @@
             <!-- เพิ่มส่วนอัพโหลดรูป -->
             <div class="upload-section">
                 <div class="upload-box">
-                    <i class="fa fa-camera"></i>
-                    <div class="button-group">
-                        <button id="cameraBtn" type="button">Request Camera Permissions</button>
-                        <button id="uploadBtn" type="button">Scan an Image File</button>
+                    <!-- เพิ่ม container สำหรับกล้อง -->
+                    <div id="camera-container" style="display: none;">
+                        <div class="scan-frame"></div>
+                    </div>
+                    
+                    <!-- ไอคอนและปุ่มต่างๆ -->
+                    <div id="upload-content">
+                        <i class="fa fa-camera"></i>
+                        <div class="button-group">
+                            <button id="cameraBtn" type="button">Request Camera Permissions</button>
+                            <button id="uploadBtn" type="button">Scan an Image File</button>
+                        </div>
                     </div>
                 </div>
             </div>
