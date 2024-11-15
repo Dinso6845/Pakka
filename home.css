@@ -162,7 +162,7 @@ form button[type="submit"]:hover {
     position: absolute;
     width: 20px;
     height: 20px;
-    border: 2px solid #FCCF61;
+    border: 2px solid #ffffff;
 }
 
 .scan-frame::before {
