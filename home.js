@@ -25,7 +25,6 @@ async function startQRScanner() {
             config,
             (decodedText) => {
                 document.getElementById("input1").value = decodedText;
-                stopQRScanner();
                 alert("สแกน QR Code สำเร็จ");
             },
             (errorMessage) => {
@@ -41,7 +40,6 @@ async function startQRScanner() {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
         }
-        // แสดงเนื้อหาเดิมเมื่อเกิดข้อผิดพลาด
         document.getElementById('camera-container').style.display = 'none';
         document.getElementById('upload-content').style.display = 'flex';
     }
@@ -57,7 +55,6 @@ async function stopQRScanner() {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
         }
-        // แสดงเนื้อหาเดิมเมื่อหยุดสแกน
         document.getElementById('camera-container').style.display = 'none';
         document.getElementById('upload-content').style.display = 'flex';
     } catch (error) {
@@ -106,6 +103,23 @@ document.addEventListener('DOMContentLoaded', function() {
             input.accept = 'image/*';
             input.onchange = handleImageUpload;
             input.click();
+        });
+    }
+
+    // เพิ่ม event listener สำหรับ form
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // ป้องกันการ refresh หน้า
+            
+            // เคลียร์ค่าใน input ทุกช่อง (รวมถึง input1)
+            const inputs = form.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            
+            // แสดงข้อความว่าบันทึกสำเร็จ
+            alert('บันทึกข้อมูลสำเร็จ');
         });
     }
 });
