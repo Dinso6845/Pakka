@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เพิ่มข้อมูลมิเตอร์ไฟฟ้า</title>
+    <!-- เชื่อมโยงไฟล์ CSS -->
+    <link rel="stylesheet" href="data.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>เพิ่มข้อมูลมิเตอร์ไฟฟ้า</h1>
+        <form action="/Electricity/backend/data.php" method="POST">
+            <div id="inputContainer">
+                <div class="inputRow">
+                    <input type="text" name="em_roomNo[]" placeholder="Room Number" required>
+                    <input type="text" name="em_meterID[]" placeholder="Meter Serial Number" required>
+                </div>
+            </div>
+            <button type="button" id="addRow">เพิ่มข้อมูลอีก</button>
+            <button type="submit">บันทึกข้อมูล</button>
+            <button type="button" id="manage" style="background-color: #d6b600; color: rgb(255, 255, 255);">จัดการข้อมูล</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('addRow').addEventListener('click', function () {
+            const inputContainer = document.getElementById('inputContainer');
+            const newRow = document.createElement('div');
+            newRow.classList.add('inputRow');
+            newRow.innerHTML = `
+                <input type="text" name="em_roomNo[]" placeholder="Room Number" required>
+                <input type="text" name="em_meterID[]" placeholder="Meter Serial Number" required>
+            `;
+            inputContainer.appendChild(newRow);
+        });
+
+        document.getElementById('manage').addEventListener('click', function() {
+            window.location.href = 'editDatabase.html';
+        });
+    </script>
+</body>
+</html>

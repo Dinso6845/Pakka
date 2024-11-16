@@ -110,16 +110,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
     if (form) {
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // ป้องกันการ refresh หน้า
+            e.preventDefault();
             
-            // เคลียร์ค่าใน input ทุกช่อง (รวมถึง input1)
+            // เคลียร์ค่าใน input ทุกช่อง
             const inputs = form.querySelectorAll('input');
             inputs.forEach(input => {
                 input.value = '';
             });
             
-            // แสดงข้อความว่าบันทึกสำเร็จ
-            alert('บันทึกข้อมูลสำเร็จ');
+            // สร้างและแสดงข้อความแจ้งเตือน
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert-message';
+            alertDiv.textContent = 'บันทึกสำเร็จ';
+            document.body.appendChild(alertDiv);
+            
+            // ลบข้อความแจ้งเตือนหลังจาก 2 วินาที
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 1000);
         });
     }
 });

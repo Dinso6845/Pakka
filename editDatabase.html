@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการข้อมูลไฟฟ้า</title>
+    <link rel="stylesheet" href="editDatabase.css"> <!-- เชื่อมโยงกับ CSS -->
+</head>
+<body>
+    <h1>จัดการข้อมูลไฟฟ้า</h1>
+    
+    <!-- ช่องค้นหา -->
+    <div class="search-container">
+        <div class="back">
+            <a href="data.html" class="back-btn">กลับไปหน้าหลัก</a>
+        </div>
+
+        <!-- ช่องค้นหา -->
+        <input type="text" id="searchInput" placeholder="ค้นหาข้อมูล..." />
+        <!-- ปุ่มค้นหา -->
+        <button id="searchButton" onclick="searchData()">ค้นหา</button>
+    </div>
+    
+    <div id="error-message"></div>
+    
+    
+    <table>
+        <thead>
+            <tr>
+                <th>รหัส</th>
+                <th>วันที่</th>
+                <th>หมายเลขห้อง</th>
+                <th>หมายเลขเครื่องมิเตอร์</th>
+                <th>เลขมิเตอร์</th>
+                <th>เลขQR Code</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+        <tbody id="data-table"> <!-- ใช้ JavaScript ดึงข้อมูล -->
+            <tr>
+                <td colspan="7">กำลังโหลดข้อมูล...</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- เพิ่ม Modal สำหรับแก้ไขข้อมูล -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>แก้ไขข้อมูล</h2>
+            <form id="editForm">
+                <input type="hidden" id="edit_id" name="em_id">
+                <div class="form-group">
+                    <label>หมายเลขห้อง:</label>
+                    <input type="text" id="edit_roomNo" name="em_roomNo" required>
+                </div>
+                <div class="form-group">
+                    <label>หมายเลขมิเตอร์:</label>
+                    <input type="text" id="edit_meterID" name="em_meterID" required>
+                </div>
+                <div class="form-group">
+                    <label>ค่าไฟเพิ่มเติม:</label>
+                    <input type="text" id="edit_addNumber" name="em_addNumber" required>
+                </div>
+                <button type="submit">บันทึกการเปลี่ยนแปลง</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="editDatabase.js"></script> <!-- เชื่อมโยง JavaScript -->
+</body>
+</html>
