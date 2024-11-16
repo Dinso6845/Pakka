@@ -150,16 +150,151 @@ h1 {
 }
 
 /* ปุ่ม "กลับไปหน้าหลัก" */
+/* ปุ่ม "กลับไปหน้าหลัก" */
 .back-btn {
     padding: 10px 20px;
     background-color: #FFD700;
     color: rgb(0, 0, 0);
-    text-decoration: none;
+    text-decoration: none; /* เอาลิงก์ออก */
     border-radius: 4px;
     transition: background-color 0.3s;
     margin-left: 20px; /* ให้ปุ่มกลับห่างจากช่องค้นหาและปุ่มค้นหานิดหน่อย */
+    display: inline-block; /* ให้ทำงานเหมือนปุ่ม */
 }
 
 .back-btn:hover {
     background-color: #45a049;
+}
+
+
+/* ป๊อปอัพพื้นหลัง */
+.modal {
+    display: none; /* ซ่อน Modal เริ่มต้น */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* มืดลงกว่าเดิมเพื่อเน้นป๊อปอัพ */
+    animation: fadeIn 0.5s ease-out; /* การแสดงผลแบบค่อยๆ fade in */
+}
+
+/* ส่วนเนื้อหาภายใน Modal */
+.modal-content {
+    background: linear-gradient(45deg, #f9d423, #ff4e50); /* สีเหลืองกับฟ้าใน gradient */
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 15px;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2); /* เงา 3D */
+    transform: scale(0.8);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* การขยายและแอนิเมชั่น */
+    transition: transform 0.3s ease;
+}
+
+/* แอนิเมชั่นการเปิด */
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* แอนิเมชั่นการแสดงผล */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* ปุ่มปิด */
+.close {
+    color: #fff;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    color: #f9d423; /* สีเหลือง */
+    transform: rotate(180deg); /* หมุนปุ่ม */
+}
+
+/* การแสดงผลข้อความในป๊อปอัพ */
+.modal-content h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* เพิ่มเงาข้อความ */
+}
+
+/* ฟอร์มและอินพุต */
+.modal-content input, .modal-content textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.modal-content input:focus, .modal-content textarea:focus {
+    border-color: #008cff; /* ฟ้า */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.8); /* เงาขณะโฟกัส */
+}
+
+/* ปุ่มการกระทำ */
+.modal-content button {
+    width: 100%;
+    padding: 15px;
+    background-color: #00aaff; /* สีฟ้า */
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #0077cc; /* สีฟ้าที่เข้มขึ้น */
+    transform: scale(1.05);  /* ขยายขนาด */
+}
+
+.modal-content button:focus {
+    outline: none;
+}
+
+/* ปุ่มกลับ */
+.back-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #fff;
+    color: #ff4e50; /* สีฟ้า */
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.back-btn:hover {
+    background-color: #ff4e50; /* เปลี่ยนเป็นสีแดง */
+    color: white;
+    transform: scale(1.05);
 }
