@@ -314,7 +314,7 @@ button:hover {
 
 /* ดันเนื้อหาด้านล่างลง */
 table {
-    margin-top: 90px; /* เว้นระยะห่างจาก Sticky Bar */
+    margin-top: 95px; /* เว้นระยะห่างจาก Sticky Bar */
     width: 100%;
     border-collapse: collapse;
 }

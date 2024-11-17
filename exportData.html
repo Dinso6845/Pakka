@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกช่วงวันที่เพื่อ Export</title>
+    <link rel="stylesheet" href="exportData.css"> <!-- เชื่อมโยงกับ CSS -->
+</head>
+
+<body>
+    <div class="container">
+        <h2>เลือกช่วงเวลาที่ต้องการ</h2>
+
+        <div class="date-range-picker">
+            <div>
+                <label for="startDate">วันที่เริ่มต้น:</label>
+                <input type="date" id="startDate">
+            </div>
+            <div>
+                <label for="endDate">วันที่สิ้นสุด:</label>
+                <input type="date" id="endDate">
+            </div>
+        </div>
+
+        <button onclick="exportData()">Export</button>
+    </div>
+
+
+    <script src="exportData.js"></script>
+</body>
+
+</html>

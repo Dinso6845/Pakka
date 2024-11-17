@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${row.em_addNumber}</td>
                     <td>${row.em_sum}</td>
                     <td>
-                        <button onclick="editRow(${row.em_id}, '${row.em_roomNo}', '${row.em_meterID}', '${row.em_addNumber}')" class="edit-btn">แก้ไข</button>
-                        <button onclick="deleteRow(${row.em_id})" class="delete-btn">ลบ</button>
+                        <button onclick="editRow(${row.em_id}, '${row.em_roomNo}', '${row.em_meterID}', '${row.em_addNumber}')" class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                        <button onclick="deleteRow(${row.em_id})" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 `;
                 tableBody.appendChild(tr);
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ฟังก์ชันค้นหาอัตโนมัติเมื่อพิมพ์
-    document.getElementById("searchInput").addEventListener("input", function() {
+    document.getElementById("searchInput").addEventListener("input", function () {
         const search = this.value.trim();
 
         if (!search) {
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ฟังก์ชันแก้ไขข้อมูล
-    window.editRow = function(id, roomNo, meterID, addNumber) {
+    window.editRow = function (id, roomNo, meterID, addNumber) {
         document.getElementById("edit_id").value = id;
         document.getElementById("edit_roomNo").value = roomNo;
         document.getElementById("edit_meterID").value = meterID;
@@ -92,18 +92,18 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // ปิด Modal
-    closeBtn.onclick = function() {
+    closeBtn.onclick = function () {
         modal.style.display = "none";
     };
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     };
 
     // จัดการการส่งฟอร์มแก้ไข
-    editForm.onsubmit = function(e) {
+    editForm.onsubmit = function (e) {
         e.preventDefault();
         const formData = new FormData(editForm);
         const data = {};
@@ -132,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     };
 
-     // ฟังก์ชันลบข้อมูล
-     window.deleteRow = function(id) {
+    // ฟังก์ชันลบข้อมูล
+    window.deleteRow = function (id) {
         if (confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?")) {
             fetch(`../backend/deleteData.php`, {
                 method: "DELETE",
@@ -153,9 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
         }
     };
-
-
-    // โหลดข้อมูลครั้งแรก
+    // ดึงข้อมูลจากฐานข้อมูลเพื่อแสดงในตาราง
     loadData();  // เรียกใช้เพื่อโหลดข้อมูลตั้งต้น
 });
-    

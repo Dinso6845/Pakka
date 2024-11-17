@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>จัดการข้อมูลไฟฟ้า</title>
     <link rel="stylesheet" href="editDatabase.css"> <!-- เชื่อมโยงกับ CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
     <!-- ช่องค้นหา -->
     <div id="sticky-bar">
-        <div><a href="data.html" class="back-btn">กลับไป</a></div>
+        <div><div><a href="data.html" class="back-btn">เพิ่มข้อมูล</a>
+            <a href="exportData.html" class="back-btn">Export</a></div></div>
         <div>
             <h2>จัดการข้อมูลไฟฟ้า</h2>
         </div>
         <div>
-            <div class="search-container"><input type="text" id="searchInput" placeholder="ค้นหาข้อมูล">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="ค้นหาข้อมูล">
                 <button onclick="searchData()">ค้นหา</button>
             </div>
         </div>
@@ -47,7 +50,9 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
+
             <h2>แก้ไขข้อมูล</h2>
+            
             <form id="editForm">
                 <input type="hidden" id="edit_id" name="em_id">
                 <div class="form-group">
@@ -55,11 +60,11 @@
                     <input type="text" id="edit_roomNo" name="em_roomNo" required>
                 </div>
                 <div class="form-group">
-                    <label>หมายเลขมิเตอร์:</label>
+                    <label>หมายเลขเครื่องมิเตอร์:</label>
                     <input type="text" id="edit_meterID" name="em_meterID" required>
                 </div>
                 <div class="form-group">
-                    <label>ค่าไฟเพิ่มเติม:</label>
+                    <label>เลขมิเตอร์:</label>
                     <input type="text" id="edit_addNumber" name="em_addNumber" required>
                 </div>
                 <button type="submit">บันทึกการเปลี่ยนแปลง</button>
