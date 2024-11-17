@@ -1,46 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>จัดการข้อมูลไฟฟ้า</title>
     <link rel="stylesheet" href="editDatabase.css"> <!-- เชื่อมโยงกับ CSS -->
-
-    <style>
-        /* ปุ่มกลับ */
-        .back-btn {
-            padding: 10px 20px;
-            background-color: #FFD700; /* สีฟ้า */
-            color: rgb(0, 0, 0);
-            text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-            margin-left: 20px; /* ให้ปุ่มกลับห่างจากช่องค้นหาและปุ่มค้นหานิดหน่อย */
-        }
-
-        .back-btn:hover {
-            background-color: #0077cc; /* สีฟ้าเข้มเมื่อ hover */
-            color: black;
-        }
-    </style>
 </head>
-<body>
-    <h1>จัดการข้อมูลไฟฟ้า</h1>  
-    
-    <!-- ช่องค้นหา -->
-    <div class="search-container">
-        <div class="back">
-            <a href="data.html" class="back-btn">กลับไปหน้าหลัก</a>
-        </div>
 
-        <!-- ช่องค้นหา -->
-        <input type="text" id="searchInput" placeholder="ค้นหาข้อมูล..." />
-        <!-- ปุ่มค้นหา -->
-        <button id="searchButton" onclick="searchData()">ค้นหา</button>
+<body>
+    <!-- ช่องค้นหา -->
+    <div id="sticky-bar">
+        <div><a href="data.html" class="back-btn">กลับไป</a></div>
+        <div>
+            <h2>จัดการข้อมูลไฟฟ้า</h2>
+        </div>
+        <div>
+            <div class="search-container"><input type="text" id="searchInput" placeholder="ค้นหาข้อมูล">
+                <button onclick="searchData()">ค้นหา</button>
+            </div>
+        </div>
     </div>
-    
+
     <div id="error-message" style="display: none; color: red;"></div>
-    
+
     <table>
         <thead>
             <tr>
@@ -61,7 +44,7 @@
     </table>
 
     <!-- Modal สำหรับแก้ไขข้อมูล -->
-    <div id="editModal" class="modal" style="display: none;">
+    <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>แก้ไขข้อมูล</h2>
@@ -86,4 +69,5 @@
 
     <script src="editDatabase.js"></script> <!-- เชื่อมโยง JavaScript -->
 </body>
+
 </html>

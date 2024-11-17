@@ -1,27 +1,39 @@
-/* ช่องค้นหาที่ขวา */
+/* คอนเทนเนอร์ที่บรรจุช่องค้นหาและปุ่ม */
 .search-container {
     display: flex;
-    justify-content: flex-end;  /* ทำให้ฟอร์มค้นหาชิดขวา */
-    margin-bottom: 20px;
-    padding-right: 20px; /* ระยะห่างขอบขวา */
+    align-items: center; /* จัดตำแหน่งแนวตั้ง */
+    justify-content: flex-end; /* ดันกล่องไปทางขวา */
+    gap: 10px; /* ระยะห่างระหว่างช่องค้นหาและปุ่ม */
+    margin-right: 20px; /* เพิ่มระยะห่างจากขอบจอ */
+    max-width: calc(100% - 40px); /* จำกัดความกว้างของกล่องรวมไม่ให้เกินขอบ */
 }
 
-/* ช่องค้นหาที่มีดีไซน์โดดเด่น */
-#searchInput {
-    width: 250px;
-    padding: 10px;
-    border: 2px solid #007bff;
-    border-radius: 30px; /* มุมโค้งมน */
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    outline: none;
+
+
+/* ปุ่ม "กลับไปหน้าหลัก" */
+.back-btn {
+    padding: 12px 25px;
+    background-color: #FFD700;
+    color: #000000; /* สีฟ้า */
+    font-weight: bold;
+    text-decoration: none; /* เอาลิงก์ออก */
+    border-radius: 10px;
+    border: 2px solid #FFD700; /* ใส่กรอบสีทอง */
+    display: inline-block; /* ให้ทำงานเหมือนปุ่ม */
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: auto; /* ทำให้ปุ่มกลับอยู่ทางซ้ายสุด */
 }
 
-#searchInput:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);  /* เงาขณะเลือก */
+.back-btn:hover {
+    background-color: #FFD700;
+    color: white;
+    transform: scale(1.05);
+    border-color: #ffcc00; /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
 }
 
+
+
+/* ปุ่มค้นหา */
 #searchButton {
     padding: 10px 20px;
     font-size: 1rem;
@@ -31,6 +43,7 @@
     border-radius: 30px;  /* มุมโค้งมน */
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-left: 10px; /* ให้ปุ่มค้นหาห่างจากช่องค้นหา */
 }
 
 #searchButton:hover {
@@ -112,61 +125,6 @@ h1 {
     font-size: 2rem; /* ขนาดข้อความ */
 }
 
-/* คอนเทนเนอร์ที่บรรจุช่องค้นหาและปุ่ม */
-.search-container {
-    display: flex; /* ใช้ Flexbox เพื่อจัดเรียงรายการในแนวนอน */
-    justify-content: space-between; /* จัดตำแหน่งให้ทั้งหมดเริ่มจากซ้าย */
-    align-items: center; /* จัดแนวตั้งให้อยู่กลาง */
-    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
-}
-
-/* ปรับให้ปุ่มกลับอยู่ทางซ้าย */
-.back {
-    margin-right: auto; /* ทำให้ปุ่มกลับอยู่ทางซ้ายสุด */
-}
-
-/* ช่องค้นหา */
-#searchInput {
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 4px;
-    width: 250px; /* กำหนดความกว้างของช่องค้นหา */
-    border: 1px solid #ddd;
-}
-
-/* ปุ่มค้นหา */
-#searchButton {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #FFD700;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#searchButton:hover {
-    background-color: #0056b3;
-}
-
-/* ปุ่ม "กลับไปหน้าหลัก" */
-/* ปุ่ม "กลับไปหน้าหลัก" */
-.back-btn {
-    padding: 10px 20px;
-    background-color: #FFD700;
-    color: rgb(0, 0, 0);
-    text-decoration: none; /* เอาลิงก์ออก */
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    margin-left: 20px; /* ให้ปุ่มกลับห่างจากช่องค้นหาและปุ่มค้นหานิดหน่อย */
-    display: inline-block; /* ให้ทำงานเหมือนปุ่ม */
-}
-
-.back-btn:hover {
-    background-color: #45a049;
-}
-
-
 /* ป๊อปอัพพื้นหลัง */
 .modal {
     display: none; /* ซ่อน Modal เริ่มต้น */
@@ -182,7 +140,7 @@ h1 {
 
 /* ส่วนเนื้อหาภายใน Modal */
 .modal-content {
-    background: linear-gradient(45deg, #f9d423, #ff4e50); /* สีเหลืองกับฟ้าใน gradient */
+    background: linear-gradient(45deg, #f9d423, #00ccff); /* สีเหลืองกับฟ้าใน gradient */
     margin: 10% auto;
     padding: 40px;
     border-radius: 15px;
@@ -243,26 +201,28 @@ h1 {
 
 /* ฟอร์มและอินพุต */
 .modal-content input, .modal-content textarea {
-    width: 100%;
-    padding: 15px;
-    font-size: 1rem;
-    border-radius: 10px;
+    width: 100%; /* เปลี่ยนเป็น 100% เพื่อให้พอดีกับ modal */
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 8px;
     border: 1px solid #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    box-sizing: border-box; /* ทำให้ padding และ border รวมอยู่ในความกว้าง */
     transition: all 0.3s ease;
 }
 
 .modal-content input:focus, .modal-content textarea:focus {
-    border-color: #008cff; /* ฟ้า */
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.8); /* เงาขณะโฟกัส */
+    border-color: #008cff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.7);
+    outline: none;
 }
 
 /* ปุ่มการกระทำ */
 .modal-content button {
     width: 100%;
     padding: 15px;
-    background-color: #00aaff; /* สีฟ้า */
-    color: white;
+    background-color: #FFD700; /* สีฟ้า */
+    color: rgb(0, 0, 0);
     font-size: 1.2rem;
     border: none;
     border-radius: 10px;
@@ -271,7 +231,7 @@ h1 {
 }
 
 .modal-content button:hover {
-    background-color: #0077cc; /* สีฟ้าที่เข้มขึ้น */
+    background-color: #FFD700; /* สีฟ้าที่เข้มขึ้น */
     transform: scale(1.05);  /* ขยายขนาด */
 }
 
@@ -280,21 +240,92 @@ h1 {
 }
 
 /* ปุ่มกลับ */
-.back-btn {
-    margin-top: 20px;
-    padding: 12px 25px;
-    background-color: #fff;
-    color: #ff4e50; /* สีฟ้า */
+.back-button {
+    background-color: #ffc107; /* สีเหลือง */
+    border: none;
+    color: #212529;
+    padding: 10px 20px;
+    font-size: 16px;
     font-weight: bold;
-    text-decoration: none;
-    border-radius: 10px;
-    display: block;
-    text-align: center;
-    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
-.back-btn:hover {
-    background-color: #ff4e50; /* เปลี่ยนเป็นสีแดง */
+.back-button:hover {
+    background-color: #e0a800; /* สีเหลืองเข้ม */
+}
+
+/* ชื่อหัวข้อ */
+.title {
+    font-size: 20px;
+    color: #343a40;
+    font-weight: bold;
+    margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+    text-align: center;
+    flex-grow: 1; /* ขยายเต็มพื้นที่ที่เหลือ */
+}
+
+#searchInput {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    width: 200px; /* ความกว้างของช่องค้นหา */
+    transition: border-color 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #007bff; /* เส้นขอบเปลี่ยนเป็นสีฟ้า */
+    outline: none;
+}
+
+button {
+    background-color: #007bff; /* สีฟ้า */
+    border: none;
     color: white;
-    transform: scale(1.05);
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* สีฟ้าเข้ม */
+}
+/* Sticky Bar */
+#sticky-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 2px solid #ddd;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-family: 'Arial', sans-serif;
+    height: 60px; /* ระบุความสูงชัดเจน */
+}
+
+/* ดันเนื้อหาด้านล่างลง */
+table {
+    margin-top: 90px; /* เว้นระยะห่างจาก Sticky Bar */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #c7c7c7;
+    padding: 10px;
+    text-align: center;
+}
+
+thead th {
+    background-color: #FFD700;
+    font-weight: bold;
 }

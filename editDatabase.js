@@ -5,9 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const editForm = document.getElementById("editForm");
     const errorMessage = document.getElementById("error-message");
 
-    // ฟังก์ชันโหลดข้อมูลทั้งหมด
-    function loadData() {
-        fetch("../backend/editDatabase.php")
+    // ฟังก์ชันโหลดข้อมูลทั้งหมดหรือค้นหาตามคำค้นหา
+    function loadData(searchQuery = '') {
+        let url = `../backend/editDatabase.php`;  // แก้ไขเป็น path ของไฟล์ PHP ที่รองรับการค้นหา
+        if (searchQuery) {
+            url += `?search=${encodeURIComponent(searchQuery)}`;  // ส่งคำค้นหาผ่าน URL
+        }
+
+        fetch(url)
             .then(response => response.text())
             .then(text => {
                 try {
@@ -45,45 +50,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 tableBody.appendChild(tr);
             });
         } else {
-            tableBody.innerHTML = `<tr><td colspan="7">ไม่มีข้อมูล</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="7">ไม่พบข้อมูลที่ค้นหา</td></tr>`;
         }
     }
 
-    // ฟังก์ชันค้นหา
-    window.searchData = function() {
-        const search = document.getElementById("searchInput").value.trim();
-        if (errorMessage) {
-            errorMessage.style.display = "none";
-        }
+    // ฟังก์ชันค้นหาอัตโนมัติเมื่อพิมพ์
+    document.getElementById("searchInput").addEventListener("input", function() {
+        const search = this.value.trim();
 
         if (!search) {
-            if (errorMessage) {
-                errorMessage.textContent = "กรุณาใส่คำค้นหา";
-                errorMessage.style.display = "block";
-            }
+            // ถ้าไม่มีคำค้นหาให้กลับไปหน้า editdatabase.html
+            window.location.href = "editdatabase.html";
             return;
         }
 
-        fetch(`../backend/searchData.php?search=${encodeURIComponent(search)}`)
+        // ส่งคำค้นหาไปยัง PHP และดึงข้อมูล
+        fetch(`../backend/editdatabase.php?search=${encodeURIComponent(search)}`)
             .then(response => response.json())
             .then(data => {
-                if (data.length > 0) {
-                    renderTable(data);
+                if (data.error) {
+                    // แสดงข้อความหากไม่พบข้อมูล
+                    tableBody.innerHTML = `<tr><td colspan="7">${data.error}</td></tr>`;
                 } else {
-                    if (errorMessage) {
-                        errorMessage.textContent = "ไม่พบข้อมูลที่ค้นหา";
-                        errorMessage.style.display = "block";
-                    }
+                    // หากพบข้อมูล ให้แสดงข้อมูลในตาราง
+                    renderTable(data);
                 }
             })
             .catch(error => {
-                console.error("Error searching data:", error);
-                if (errorMessage) {
-                    errorMessage.textContent = "เกิดข้อผิดพลาดในการค้นหา";
-                    errorMessage.style.display = "block";
-                }
+                console.error("Error:", error);
+                alert("เกิดข้อผิดพลาดในการค้นหา");
             });
-    };
+    });
 
     // ฟังก์ชันแก้ไขข้อมูล
     window.editRow = function(id, roomNo, meterID, addNumber) {
@@ -124,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (result.status === "success") {
                     alert(result.message);
                     modal.style.display = "none";
-                    loadData();
+                    loadData();  // รีเฟรชข้อมูลใหม่หลังจากอัพเดต
                 } else {
                     alert(result.message);
                 }
@@ -135,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     };
 
-    // ฟังก์ชันลบข้อมูล
-    window.deleteRow = function(id) {
+     // ฟังก์ชันลบข้อมูล
+     window.deleteRow = function(id) {
         if (confirm("คุณต้องการลบข้อมูลนี้ใช่หรือไม่?")) {
             fetch(`../backend/deleteData.php`, {
                 method: "DELETE",
@@ -157,6 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+
     // โหลดข้อมูลครั้งแรก
-    loadData();
+    loadData();  // เรียกใช้เพื่อโหลดข้อมูลตั้งต้น
 });
+    
