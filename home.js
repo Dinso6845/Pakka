@@ -1,14 +1,12 @@
 // สร้างตัวแปรสำหรับเก็บ instance ของ QR scanner
 let qrCodeScanner = null;
 
-// ฟังก์ชันสำหรับเริ่มการสแกน QR Code
 async function startQRScanner() {
     try {
         if (qrCodeScanner) {
             await stopQRScanner();
         }
 
-        // ซ่อนเนื้อหาเดิมและแสดงกล้อง
         document.getElementById('upload-content').style.display = 'none';
         document.getElementById('camera-container').style.display = 'block';
 
@@ -17,25 +15,40 @@ async function startQRScanner() {
         const config = {
             fps: 10,
             qrbox: { width: 200, height: 200 },
-            aspectRatio: 1.0
+            aspectRatio: 1.0,
         };
 
         await qrCodeScanner.start(
             { facingMode: "environment" },
             config,
-            (decodedText) => {
-                document.getElementById("input1").value = decodedText;
-                alert("สแกน QR Code สำเร็จ");
+            async (decodedText) => {
+                // ส่งค่าที่สแกนได้ไปยัง backend
+                const response = await fetch('http://127.0.0.1/backend/data.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ qrCode: decodedText }),
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    const data = result.data;
+                    document.getElementById("input3").value = data.em_roomNo;
+                    document.getElementById("input4").value = data.em_meterID;
+                    alert("ดึงข้อมูลสำเร็จ!");
+                } else {
+                    alert(result.message || "เกิดข้อผิดพลาด");
+                }
+
+                await stopQRScanner(); // หยุดการสแกนเมื่อเสร็จ
             },
             (errorMessage) => {
                 console.log(errorMessage);
             }
         );
-
     } catch (error) {
         console.error("Error starting QR scanner:", error);
         alert("ไม่สามารถเริ่มการสแกนได้");
-        
         if (qrCodeScanner) {
             await qrCodeScanner.clear();
             qrCodeScanner = null;
@@ -44,6 +57,7 @@ async function startQRScanner() {
         document.getElementById('upload-content').style.display = 'flex';
     }
 }
+
 
 // ฟังก์ชันสำหรับหยุดการสแกน
 async function stopQRScanner() {
