@@ -1,362 +1,74 @@
-/* Global styles */
 body {
-    background-color: #2d2d2d;
-    color: #ffffff;
-    margin: 0;
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
 
-/* Navbar styles */
 .navbar {
-    background-color: #FCCF61;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.navbar-text {
+    background-color: #4CAF50;
+    padding: 10px 0;
+    text-align: center;
+    color: white;
     font-size: 20px;
-    font-weight: bold;
-    color: #000;
 }
 
-.fa-lightbulb-o {
-    margin-right: 8px;
-}
-
-/* Container styles */
 .container {
-    max-width: 500px;
+    width: 80%;
     margin: 20px auto;
+    background-color: white;
     padding: 20px;
-    background-color: #363636;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Input form styles */
+#qr-reader {
+    margin: 20px auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    width: 100%;
+    height: 300px;
+}
+
+#qr-reader-results {
+    margin-top: 20px;
+    color: green;
+    font-size: 16px;
+}
+
 .input-group {
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .input-group label {
+    font-size: 16px;
     display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #ffffff;
+    margin-bottom: 5px;
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #4a4a4a;
-    border-radius: 6px;
+    padding: 10px;
     font-size: 16px;
-    background-color: #2d2d2d;
-    color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
-.input-group input:focus {
-    outline: none;
-    border-color: #FCCF61;
-    box-shadow: 0 0 5px rgba(252, 207, 97, 0.3);
-}
-
-/* Upload section styles */
-.upload-section {
-    margin-bottom: 30px;
-}
-
-.upload-box {
-    border: 2px dashed #4a4a4a;
-    padding: 20px;
-    background-color: #2d2d2d;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.upload-box:hover {
-    border-color: #FCCF61;
-    background-color: #323232;
-}
-
-.upload-box i {
-    font-size: 40px;
-    color: #FCCF61;
-    margin-bottom: 15px;
-    display: block;
-}
-
-.upload-box button {
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    width: 50%;
-}
-
-.upload-box button:hover {
-    background-color: #1557b0;
-}
-
-/* Submit button styles */
-form button[type="submit"] {
+button[type="submit"] {
     width: 100%;
     padding: 12px;
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-}
-
-form button[type="submit"]:hover {
-    background-color: #1557b0;
-}
-
-/* QR reader styles */
-#qr-reader {
-    width: 100%;
-    height: 400px;
-    background: #000;
-    position: relative;
-    margin-top: 20px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* กรอบสแกน */
-.scan-frame {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    border: 2px solid #FCCF61;
-    border-radius: 8px;
-    z-index: 1;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
-}
-
-/* สไตล์สำหรับมุมกรอบ */
-.scan-frame::before,
-.scan-frame::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ffffff;
-}
-
-.scan-frame::before {
-    top: -2px;
-    left: -2px;
-    border-right: none;
-    border-bottom: none;
-}
-
-.scan-frame::after {
-    bottom: -2px;
-    right: -2px;
-    border-left: none;
-    border-top: none;
-}
-
-/* ซ่อนข้อความที่ไม่จำเป็น */
-#qr-reader__header_message,
-#qr-reader__status_span {
-    display: none !important;
-}
-
-/* สไตล์สำหรับวิดีโอ */
-#camera-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Placeholder styles */
-::placeholder {
-    color: #888888;
-}
-
-/* Video element styles */
-video {
-    width: 100%;
-    border-radius: 6px;
-    margin-top: 15px;
-}
-
-/* Image preview styles */
-.upload-box img {
-    max-width: 100%;
-    border-radius: 6px;
-    margin-top: 15px;
-}
-
-/* Upload box button group styles */
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
-/* สไตล์สำหรับปุ่มกล้อง */
-#cameraBtn {
-    background-color: #1a73e8;
-    color: white;
-    border: none;
-}
-
-#cameraBtn:hover {
-    background-color: #1557b0;
-}
-
-/* สไตล์สำหรับปุ่ม upload (แบบใส) */
-#uploadBtn {
-    background-color: transparent;
-    color: white;
-    border: 1px solid white;
-}
-
-#uploadBtn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #FCCF61;
-    color: #FCCF61;
-}
-
-/* ลบส่วนนี้ออกเพราะไม่ใช้แล้ว */
-/* .upload-text {
-    ...
-} */
-
-/* เพิ่ม styles สำหรับปุ่มสลับกล้อง */
-#camera-switch-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
-}
-
-#switchCameraBtn {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-#switchCameraBtn:hover {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1001;
-}
-
-.modal-content {
-    background-color: #363636;
-    margin: 20% auto;
-    padding: 20px;
-    width: 80%;
-    max-width: 300px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.modal h2 {
-    color: #ffffff;
-    margin-bottom: 20px;
-}
-
-.camera-options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.camera-options button {
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #1a73e8;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 16px;
-}
-
-.camera-options button:hover {
-    background-color: #1557b0;
-}
-
-.camera-options i {
-    font-size: 20px;
-}
-
-/* สไตล์สำหรับ camera container */
-#camera-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-/* เพิ่ม style สำหรับข้อความแจ้งเตือน */
-.alert-message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-color: #4CAF50;
     color: white;
-    padding: 15px 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
     border-radius: 5px;
-    font-size: 16px;
-    z-index: 1000;
-    animation: fadeInOut 2s ease-in-out;
+    transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
-@keyframes fadeInOut {
-    0% { opacity: 0; }
-    15% { opacity: 1; }
-    85% { opacity: 1; }
-    100% { opacity: 0; }
+button[type="submit"]:hover {
+    background-color: #45a049;
 }
