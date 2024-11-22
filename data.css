@@ -95,6 +95,54 @@ button:hover {
     background-color: #FFC800;
 }
 
+/* Popup Styles */
+#popup {
+    display: none;
+    position: fixed; /* Fix it in the viewport */
+    top: 10px; /* ปรับตำแหน่งให้ขึ้นมาจากขอบบน */
+    left: 50%; /* จัดให้อยู่กลางในแนวนอน */
+    transform: translateX(-50%); /* ใช้เพื่อจัดตำแหน่งให้กลางจริงๆ */
+    padding: 20px;
+    z-index: 1000; /* Ensure it's on top */
+    border-radius: 8px;
+}
+
+.popup-content {
+    background-color:#c2c2d3;
+    color: #2d2d2d;
+    padding: 20px;
+    border-radius: 6px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup-content button {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-content button:hover {
+    background-color: #0056b3;
+}
+
+/* Cancel button in the popup */
+.popup-content .cancel {
+    background-color: #f44336;
+}
+
+.popup-content .cancel:hover {
+    background-color: #d32f2f;
+}
+
+
 /* Responsive Design */
 @media (max-width: 600px) {
     .inputRow {
