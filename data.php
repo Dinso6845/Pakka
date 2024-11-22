@@ -1,63 +1,39 @@
 <?php
-// การเชื่อมต่อฐานข้อมูล
+// เชื่อมต่อฐานข้อมูล
 include('connect.php');
-$conn = dbconnect();
+$conn = dbconnect(); // ใช้ฟังก์ชัน dbconnect ที่เชื่อมต่อฐานข้อมูล
 
-// ตรวจสอบการเชื่อมต่อ
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// รับข้อมูลจากฟอร์ม
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // ตรวจสอบว่าฟอร์มมีข้อมูลครบถ้วน
-    if (isset($_POST['em_roomNo'], $_POST['em_meterID'])) {
-        $em_roomNos = $_POST['em_roomNo'];
-        $em_meterIDs = $_POST['em_meterID'];
+    // รับข้อมูลจากฟอร์ม
+    $roomNos = $_POST['em_roomNo']; // รับข้อมูล Room Number
+    $meterIDs = $_POST['em_meterID']; // รับข้อมูล Meter Serial Number
 
-        if (count($em_roomNos) == count($em_meterIDs)) {
-            // ใช้ prepared statement เพื่อเพิ่มข้อมูล
-            $stmt = $conn->prepare("INSERT INTO electricity (em_roomNo, em_meterID, em_sum) VALUES (?, ?, ?)");
+    // ใช้คำสั่ง SQL สำหรับการเพิ่มข้อมูล
+    $sql = "INSERT INTO `electricity` (`em_roomNo`, `em_meterID`, `em_sum`) 
+            VALUES (?, ?, ?)";
 
-            for ($i = 0; $i < count($em_roomNos); $i++) {
-                $em_roomNo = $em_roomNos[$i];
-                $em_meterID = $em_meterIDs[$i];
-                $em_sum = $em_roomNo . '-' . $em_meterID;
-
-                // Binding ข้อมูลและ execute คำสั่ง SQL
-                $stmt->bind_param("sss", $em_roomNo, $em_meterID, $em_sum);
-                if (!$stmt->execute()) {
-                    echo "<script>alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล!');</script>";
-                    exit();
-                }
-            }
-
-            // ปิดการเชื่อมต่อฐานข้อมูล
-            $stmt->close();
-            $conn->close();
-
-            // แสดงข้อความสำเร็จและเปลี่ยนเส้นทาง
-            echo "<script>
-                    alert('เพิ่มข้อมูลสำเร็จ!');
-                    window.location.href = '/Electricity/frontend/data.html';
-                  </script>";
-            exit();
-        } else {
-            echo "<script>
-                    alert('ข้อมูลไม่ครบถ้วน! โปรดตรวจสอบข้อมูลอีกครั้ง');
-                    window.history.back(); // กลับไปยังหน้าก่อนหน้า
-                  </script>";
-            exit();
-        }
-    } else {
-        echo "<script>
-                alert('ไม่มีข้อมูลที่ส่งมา!');
-                window.history.back();
-              </script>";
-        exit();
+    // เตรียมคำสั่ง SQL ด้วย MySQLi
+    $stmt = $conn->prepare($sql);
+    
+    if ($stmt === false) {
+        die("ERROR: " . $conn->error); // ถ้ามีข้อผิดพลาดในการเตรียมคำสั่ง SQL
     }
-}
 
-// ปิดการเชื่อมต่อหากไม่ได้ใช้งาน
-$conn->close();
+    // ใช้การวนลูปเพื่อบันทึกข้อมูลทีละแถว
+    for ($i = 0; $i < count($roomNos); $i++) {
+        // สร้างค่า em_sum จากการรวม em_roomNo และ em_meterID ด้วย "-"
+        $sum = $roomNos[$i] . "-" . $meterIDs[$i];
+
+        // Binding ข้อมูลในแต่ละแถว
+        $stmt->bind_param('sss', $roomNos[$i], $meterIDs[$i], $sum);
+
+        // Execute การบันทึกข้อมูล
+        $stmt->execute();
+    }
+
+    // แจ้งว่าเพิ่มข้อมูลสำเร็จ
+    echo "<script>alert('บันทึกข้อมูลสำเร็จ!'); window.location.href = '../frontend/data.html';</script>";
+} else {
+    echo "<script>alert('ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบข้อมูล'); window.location.href = '../frontend/data.html';</script>";
+}
 ?>
