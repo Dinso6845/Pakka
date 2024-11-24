@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // ส่งคำค้นหาไปยัง PHP และดึงข้อมูล
-        fetch(`../backend/editdatabase.php?search=${encodeURIComponent(search)}`)
+        fetch(`../backend/editDatabase.php?search=${encodeURIComponent(search)}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
