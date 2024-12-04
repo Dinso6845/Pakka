@@ -15,11 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // แสดงผลในผลลัพธ์
             resultContainer.innerHTML = `<div>[${countResults}] - ${decodedText}</div>`;
-
-            // ใส่ข้อมูลลงในช่อง input1
             document.getElementById("input1").value = decodedText;
-
-            // กำหนด input1, input2, input3 ให้เป็น readonly
             document.getElementById("input1").setAttribute("readonly", true);
             document.getElementById("input2").setAttribute("readonly", true);
             document.getElementById("input3").setAttribute("readonly", true);
@@ -67,17 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error(`ข้อผิดพลาดจากการสแกน QR: ${qrCodeError}`);
     }
 
-    // เริ่มการแสดงผล
     html5QrcodeScanner.render(onScanSuccess, onScanError);
 
     // ฟังก์ชันเมื่อกดปุ่ม Submit
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.addEventListener("click", function () {
-        // ดึงค่าจาก input4
         const em_addNumber = document.getElementById("input4").value;
-        const em_timestamp = new Date().toISOString(); // เก็บวันที่และเวลาเป็น ISO String
-    
-        // ดึงค่าจาก input1 (QR Code ที่สแกนมา)
+
         const em_qrcode = document.getElementById("input1").value;
     
         // ตรวจสอบว่า input4 มีค่าไหม
@@ -94,8 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({
                 qrcode: em_qrcode,
-                addNumber: em_addNumber,
-                timestamp: em_timestamp
+                addNumber: em_addNumber
             })
         })
         .then(response => {
@@ -106,7 +97,11 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             if (data.status === 'success') {
-                alert('ข้อมูลได้ถูกบันทึกเรียบร้อยแล้ว');
+                document.getElementById("input1").value = null;
+                document.getElementById("input2").value = null;
+                document.getElementById("input3").value = null;
+                document.getElementById("input4").value = null;
+                console.log('หลังกดปุมบันทึก : ');
             } else {
                 alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
             }

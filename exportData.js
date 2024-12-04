@@ -1,39 +1,54 @@
-function exportData() {
-    const startDate = document.getElementById('start-date').value;
-    const endDate = document.getElementById('end-date').value;
+// เปิด Modal สำหรับ Export ข้อมูล
+function openExportModal() {
+    document.getElementById('exportModal').style.display = 'block';
+}
 
+// ปิด Modal สำหรับ Export ข้อมูล
+function closeExportModal() {
+    document.getElementById('exportModal').style.display = 'none';
+}
+
+// ฟังก์ชัน Export ข้อมูล
+function exportData() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    // ตรวจสอบว่าได้เลือกวันที่หรือไม่
     if (!startDate || !endDate) {
         alert("กรุณาเลือกวันเริ่มต้นและวันสิ้นสุด");
         return;
     }
 
-    // ส่งข้อมูลวันที่ที่เลือกไปที่ backend เพื่อให้มันสร้างไฟล์ Excel
-    window.location.href = `exportExcel.php?start_date=${startDate}&end_date=${endDate}`;
-}
+    // สร้าง URL สำหรับส่งคำร้องขอไปยัง PHP
+    const url = `../backend/exportData.php?start_date=${encodeURIComponent(startDate)}&end_date=${encodeURIComponent(endDate)}`;
 
-function exportData() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-
-    if (!startDate || !endDate) {
-        alert("กรุณาเลือกวันที่เริ่มต้นและวันที่สิ้นสุด");
-        return;
-    }
-
-    // สร้าง URL สำหรับการดึงข้อมูลจากฐานข้อมูล (สามารถส่งค่า startDate และ endDate ไปที่ backend)
-    const url = `../backend/exportExcel.php?startDate=${startDate}&endDate=${endDate}`;
-
-    // ส่งคำร้องขอข้อมูลจาก backend
+    // ใช้ fetch เพื่อดึงข้อมูลจาก PHP
     fetch(url)
-        .then(response => response.blob())
-        .then(blob => {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'data_export.csv';  // ตั้งชื่อไฟล์ที่จะดาวน์โหลด
-            link.click();
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('ไม่สามารถดึงข้อมูลได้: ' + response.statusText);
+            }
+
+            const contentType = response.headers.get('Content-Type');
+            if (contentType.includes('application/vnd.ms-excel')) {
+                return response.blob();
+            } else {
+                return response.text();
+            }
+        })
+        .then(data => {
+            if (data instanceof Blob) {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(data);
+                link.download = `Electricity_Export_${startDate}_to_${endDate}.xls`;
+                link.click();
+                closeExportModal();
+            } else {
+                alert(data);
+            }
         })
         .catch(error => {
-            console.error('Error exporting data:', error);
-            alert('เกิดข้อผิดพลาดในการส่งข้อมูล');
+            console.error('Error:', error);
+            alert(error.message);
         });
 }

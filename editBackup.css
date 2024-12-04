@@ -13,19 +13,19 @@
 /* ปุ่ม "กลับไปหน้าหลัก" */
 .back-btn {
     padding: 12px 25px;
-    background-color: #FFD700;
+    background-color: #ffcc00;
     color: #000000; /* สีฟ้า */
     font-weight: bold;
     text-decoration: none; /* เอาลิงก์ออก */
     border-radius: 10px;
-    border: 2px solid #FFD700; /* ใส่กรอบสีทอง */
+    border: 2px solid #ffcc00; /* ใส่กรอบสีทอง */
     display: inline-block; /* ให้ทำงานเหมือนปุ่ม */
     transition: background-color 0.3s, transform 0.3s;
     margin-right: auto; /* ทำให้ปุ่มกลับอยู่ทางซ้ายสุด */
 }
 
 .back-btn:hover {
-    background-color: #FFD700;
+    background-color: #ffcc00;
     color: white;
     transform: scale(1.05);
     border-color: #ffcc00; /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
@@ -85,7 +85,7 @@ th, td {
 }
 
 th {
-    background-color: #FFD700;
+    background-color: #ffcc00;
     font-weight: bold;
 }
 
@@ -221,7 +221,7 @@ h1 {
 .modal-content button {
     width: 100%;
     padding: 15px;
-    background-color: #FFD700; /* สีฟ้า */
+    background-color: #f44336;
     color: rgb(0, 0, 0);
     font-size: 1.2rem;
     border: none;
@@ -231,8 +231,8 @@ h1 {
 }
 
 .modal-content button:hover {
-    background-color: #FFD700; /* สีฟ้าที่เข้มขึ้น */
-    transform: scale(1.05);  /* ขยายขนาด */
+    background-color: #f44336; 
+    transform: scale(1.05);
 }
 
 .modal-content button:focus {
@@ -241,7 +241,7 @@ h1 {
 
 /* ปุ่มกลับ */
 .back-button {
-    background-color: #ffc107; /* สีเหลือง */
+    background-color: #f44336; 
     border: none;
     color: #212529;
     padding: 10px 20px;
@@ -326,7 +326,7 @@ table th, table td {
 }
 
 thead th {
-    background-color: #FFD700;
+    background-color: #ffcc00;
     font-weight: bold;
 }
 
@@ -446,20 +446,20 @@ thead th {
     padding: 12px 25px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #FFD700; /* สีทอง */
-    color: black; /* สีข้อความ */
-    border: 2px solid #FFD700; /* กรอบสีทอง */
-    border-radius: 10px; /* มุมโค้งมน */
+    background-color: #f44336;
+    color: black;
+    border: 2px solid #f44336;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-left: 3px;
 }
 
 #backupButton:hover {
-    background-color: #ffcc00; /* สีทองเข้มขึ้นเมื่อ hover */
+    background-color: #f44336;
     color: white;
-    transform: scale(1.05); /* ขยายขนาดเล็กน้อยขณะ hover */
-    border-color: #ffcc00; /* กรอบสีทองเข้มขึ้น */
+    transform: scale(1.05); 
+    border-color: #f44336; 
 }
 
 #backupButton:focus {
@@ -467,7 +467,7 @@ thead th {
 }
 
 #backupButton:active {
-    background-color: #e6b800; /* สีทองเข้มเมื่อคลิก */
+    background-color: #f44336; 
 }
 
 .overlay {

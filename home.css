@@ -1,80 +1,128 @@
+/* รีเซ็ตพื้นฐาน */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #000; /* สีพื้นหลังสีดำ */
+    color: #fff; /* สีตัวอักษรสีขาว */
 }
 
+/* แถบ Navbar */
 .navbar {
-    background-color: #FCCF61;
+    background-color: #FFD700; /* สีเหลืองทอง */
     padding: 10px 0;
     text-align: center;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
+    color: #000; /* สีตัวอักษรดำ */
+    font-size: 24px; /* เพิ่มขนาดฟอนต์ */
+    font-weight: bold; /* ตัวหนา */
+    text-transform: uppercase; /* ตัวอักษรพิมพ์ใหญ่ทั้งหมด */
+    box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5); /* เงาสีเหลือง */
 }
 
+/* กล่องคอนเทนเนอร์ */
 .container {
     width: 80%;
-    margin: 20px auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 30px auto;
+    background-color: #222; /* พื้นหลังสีเทาเข้ม */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); /* เพิ่มเงาสีเหลือง */
+    /* transition: transform 0.3s ease; เพิ่มเอฟเฟกต์ */
 }
 
+/* เมื่อ hover กล่องคอนเทนเนอร์ */
+.container:hover {
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5); /* เงาเด่นขึ้น */
+}
+
+/* กรอบ QR Reader */
 #qr-reader {
-    margin: auto; /* ระยะห่างด้านบนและล่าง */
-    border: 2px solid #ddd; /* กำหนดกรอบให้กับ qr-reader */
-    border-radius: 8px; /* ทำมุมกรอบให้โค้ง */
-    background-color: #fafafa; /* กำหนดสีพื้นหลัง */
-    width: 100%; /* กำหนดความกว้างให้เต็มพื้นที่ */
-    height: 430px; /* กำหนดความสูง */
-    overflow: auto; /* แสดงแถบเลื่อนเมื่อเนื้อหามากเกินไป */
+    margin: auto;
+    border: 2px solid #FFD700; /* กรอบสีเหลืองทอง */
+    border-radius: 10px;
+    background-color: #333; /* สีเทาเข้ม */
+    width: 100%;
+    height: 430px;
+    overflow: auto;
 }
 
+/* ผลลัพธ์ QR Code */
 #qr-reader-results {
-    margin-top: 10px; /* เพิ่มระยะห่างด้านบนระหว่างผลลัพธ์กับช่องถัดไป */
-    color: green; /* กำหนดสีของข้อความ */
-    font-size: 16px; /* กำหนดขนาดฟอนต์ */
+    margin-top: 10px;
+    color: #FFD700; /* สีเหลืองทอง */
+    font-size: 16px;
+    font-weight: bold;
 }
 
+/* กล่อง Input */
 .input-group {
-    margin-top: 20px; /* ระยะห่างด้านบนของแต่ละ input */
-}
-
-/* เพิ่ม margin ให้ระหว่าง input และ qr-drop-zone */
-.html5-qrcode-drop-zone {
-    margin-bottom: 20px !important; /* ป้องกันการทับกับ input */
+    margin-top: 20px;
 }
 
 .input-group label {
-    font-size: 16px;
+    font-size: 18px;
     display: block;
     margin-bottom: 5px;
+    color: #FFD700; /* สีเหลืองทอง */
+    font-weight: bold;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #FFD700; /* กรอบสีเหลือง */
+    border-radius: 8px;
+    background-color: #000; /* พื้นหลังดำ */
+    color: #FFD700; /* ตัวอักษรสีเหลือง */
     box-sizing: border-box;
+    transition: all 0.3s ease; /* เพิ่มการเคลื่อนไหว */
 }
 
+/* เมื่อ hover หรือ focus ที่ input */
+.input-group input:hover, .input-group input:focus {
+    border-color: #fff; /* กรอบเปลี่ยนเป็นขาว */
+    background-color: #333; /* พื้นหลังเปลี่ยนเป็นเทา */
+    color: #FFD700;
+}
+
+/* ปุ่ม Submit */
 button[type="submit"] {
     width: 100%;
-    padding: 12px;
-    background-color: #FCCF61;
-    color: rgb(0, 0, 0);
+    padding: 15px;
+    background-color: #FFD700; /* พื้นหลังเหลืองทอง */
+    color: #000; /* ตัวอักษรดำ */
     border: none;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
     cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin-top: 20px; /* ระยะห่างด้านบนปุ่ม Submit */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: 25px;
+    text-transform: uppercase; /* ตัวอักษรพิมพ์ใหญ่ */
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4); /* เงาสีเหลือง */
 }
 
+/* เมื่อ hover ที่ปุ่ม */
 button[type="submit"]:hover {
-    background-color: #FCCF61;
+    background-color: #fff; /* พื้นหลังขาว */
+    color: #FFD700; /* ตัวอักษรเหลืองทอง */
+    transform: scale(1.05); /* ขยายเล็กน้อย */
+    box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6); /* เงาเด่นขึ้น */
+}
+
+/* ปุ่มเมื่อคลิก */
+button[type="submit"]:active {
+    transform: scale(0.98); /* กดแล้วลดขนาด */
+}
+
+/* สำหรับมือถือ */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    button[type="submit"] {
+        font-size: 18px;
+    }
 }
