@@ -7,7 +7,6 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // ถ้ามีคำค้นหา
 if (!empty($search)) {
-    // สร้างคำสั่ง SQL ค้นหาฟิลด์ที่ต้องการ (em_roomNo, em_meterID, em_addNumber, em_sum)
     $sql = "SELECT em_id, em_timestamp, em_roomNo, em_meterID, em_addNumber, em_sum 
             FROM electricity 
             WHERE em_roomNo LIKE ? OR em_meterID LIKE ? OR em_addNumber LIKE ? OR em_sum LIKE ?";
@@ -27,7 +26,7 @@ if (!empty($search)) {
             while ($row = $result->fetch_assoc()) {
                 $data[] = $row;
             }
-            echo json_encode($data);  // ส่งผลลัพธ์เป็น JSON
+            echo json_encode($data);
         } else {
             echo json_encode(['error' => 'ไม่พบข้อมูลที่ค้นหา']);
         }

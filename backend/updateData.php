@@ -11,10 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $roomNo = $data['em_roomNo'];
     $meterID = $data['em_meterID'];
     $addNumber = $data['em_addNumber'];
+    
+    $sum = $roomNo . '-' . $meterID;
 
-    $sql = "UPDATE electricity SET em_roomNo = ?, em_meterID = ?, em_addNumber = ? WHERE em_id = ?";
+    $sql = "UPDATE electricity 
+            SET em_roomNo = ?, em_meterID = ?, em_addNumber = ?, em_sum = ?
+            WHERE em_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssi", $roomNo, $meterID, $addNumber, $id);
+    $stmt->bind_param("ssssi", $roomNo, $meterID, $addNumber, $sum, $id);
 
     if ($stmt->execute()) {
         echo json_encode(['status' => 'success', 'message' => 'อัพเดทข้อมูลสำเร็จ']);
