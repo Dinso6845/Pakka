@@ -180,6 +180,11 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteCancelBtn.onclick = function () {
         deleteModal.style.display = "none"; 
     };
+
+    const baseURL = "http://127.0.0.1/Electricity/frontend/editDatabase.html";
+        const encodedURL = encodeURIComponent(baseURL);
+    
+        window.history.replaceState({}, "", `?url=${encodedURL}`);
       
     loadData(); 
 });

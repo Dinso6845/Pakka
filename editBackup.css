@@ -18,17 +18,17 @@
     font-weight: bold;
     text-decoration: none; /* เอาลิงก์ออก */
     border-radius: 10px;
-    border: 2px solid #ffcc00; /* ใส่กรอบสีทอง */
+    border: 2px solid #FFD700; /* ใส่กรอบสีทอง */
     display: inline-block; /* ให้ทำงานเหมือนปุ่ม */
     transition: background-color 0.3s, transform 0.3s;
     margin-right: auto; /* ทำให้ปุ่มกลับอยู่ทางซ้ายสุด */
 }
 
 .back-btn:hover {
-    background-color: #ffcc00;
+    background-color: #FFD700;
     color: white;
     transform: scale(1.05);
-    border-color: #ffcc00; /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
+    border-color: #FFD700; /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
 }
 
 
@@ -85,7 +85,7 @@ th, td {
 }
 
 th {
-    background-color: #ffcc00;
+    background-color: #FFD700;
     font-weight: bold;
 }
 
@@ -326,7 +326,7 @@ table th, table td {
 }
 
 thead th {
-    background-color: #ffcc00;
+    background-color: #FFD700;
     font-weight: bold;
 }
 
@@ -534,3 +534,19 @@ thead th {
   .popup button:hover {
     opacity: 0.9;
   }
+
+  @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.red {
+    color: red;
+    animation: blink 1s infinite; /* Make the text blink */
+}
+
+.green {
+    color: green;
+}
+

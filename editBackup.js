@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteCancelBtn = document.getElementById("deleteCancelBtn");
     const tableHead = document.querySelector("thead");
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth(); 
+    const currentMonth = currentDate.getMonth();
     const passwordModal = document.getElementById("passwordModal");
     const passwordInput = document.getElementById("passwordInput");
     const submitPasswordBtn = document.getElementById("submitPasswordBtn");
     const correctPassword = "jj1234";
-    const closePasswordModalBtn = document.getElementById("closePasswordModalBtn"); 
+    const closePasswordModalBtn = document.getElementById("closePasswordModalBtn");
     let deleteId = null;
     let currentAction = null;  // ใช้สำหรับการระบุว่าเป็นการแก้ไขหรือลบ
 
@@ -97,11 +97,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${row.em_addNumber}</td>
                     <td>${row.em_addNumberElectricity}</td>
                     <td>${row.difference}</td>
-                    <td>${parseFloat(row.percentage_change).toFixed(2)}% 
-                        <span class="warning">
-                            ${Math.abs(row.percentage_change) > 5 ? 'เตอาจมีข้อผิดพลาด' : 'ปกติ'}
+                    <td>${row.percentage_change ? parseFloat(row.percentage_change).toFixed(2) : '0.00'}% 
+                    
+                        <span class="warning ${Math.abs(row.percentage_change || 0) > 20 ? 'red' : 'green'}">
+                            ${Math.abs(row.percentage_change || 0) > 20 ? 'ผิดปกติ' : 'ปกติ'}
                         </span>
+
                     </td>
+
 
                     <td>
                         <button onclick="requestEdit(${row.em_id}, '${row.em_roomNo}', '${row.em_meterID}', '${row.em_addNumber}', '${row.em_addNumber1}', '${row.em_addNumber2}','${row.em_addNumber3}','${row.em_addNumberElectricity}')" class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
@@ -113,6 +116,32 @@ document.addEventListener("DOMContentLoaded", () => {
             tableBody.innerHTML = `<tr><td colspan="7">ไม่พบข้อมูลที่ค้นหา</td></tr>`;
         }
     }
+
+    document.getElementById("searchInput").addEventListener("input", function () {
+        const search = this.value.trim();
+
+        if (!search) {
+
+            window.location.href = "editBackup.html";
+            return;
+        }
+
+        // ส่งคำค้นหาไปยัง PHP และดึงข้อมูล
+        fetch(`../backend/editBackup.php?search=${encodeURIComponent(search)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    tableBody.innerHTML = `<tr><td colspan="7">${data.error}</td></tr>`;
+                } else {
+                    // หากพบข้อมูล ให้แสดงข้อมูลในตาราง
+                    renderTable(data);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("เกิดข้อผิดพลาดในการค้นหา");
+            });
+    });
 
     // ฟังก์ชันสำหรับการขอรหัสผ่านและแก้ไข
     window.requestEdit = function (id, roomNo, meterID, addNumber, addNumber1, addNumber2, addNumber3) {
@@ -225,6 +254,12 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteCancelBtn.onclick = function () {
         deleteModal.style.display = "none";
     };
+
+    const baseURL = "http://127.0.0.1/Electricity/frontend/editBackup.html";
+    const encodedURL = encodeURIComponent(baseURL);
+
+    window.history.replaceState({}, "", `?url=${encodedURL}`);
+
 
     loadData();
 });

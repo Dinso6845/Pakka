@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include('connect.php');
 $conn = dbconnect();
 
@@ -20,4 +20,4 @@ if ($result->num_rows > 0) {
 echo json_encode(['currentMonth' => $currentMonth]);
 
 $conn->close();
-?>
+?> -->

@@ -2,11 +2,6 @@
 include('connect.php');
 $conn = dbconnect();
 
-// ตรวจสอบการเชื่อมต่อ
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $startDate = $_GET['start_date'];
 $endDate = $_GET['end_date'];
 

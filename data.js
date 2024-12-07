@@ -37,3 +37,9 @@ document.getElementById('manage').addEventListener('click', function() {
 
 // เพิ่ม event listener ให้ปุ่มบันทึก
 document.getElementById('saveBtn').addEventListener('click', confirmSave);
+
+
+const baseURL = "http://127.0.0.1/Electricity/frontend/data.html";
+        const encodedURL = encodeURIComponent(baseURL);
+    
+        window.history.replaceState({}, "", `?url=${encodedURL}`);

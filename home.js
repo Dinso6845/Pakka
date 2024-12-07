@@ -111,4 +111,9 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
         });
     });    
+
+    const baseURL = "http://127.0.0.1/Electricity/frontend/home.html";
+        const encodedURL = encodeURIComponent(baseURL);
+    
+        window.history.replaceState({}, "", `?url=${encodedURL}`);
 });

@@ -1,8 +1,7 @@
-<?php
+<!-- <?php
 include('connect.php'); 
 $conn = dbconnect(); 
 
-// ดึงข้อมูลจาก masterElectricity มาอัปเดตใน electricity
 $query = "SELECT e.em_addNumber, e.em_timestamp, m.em_addNumber1, m.em_addNumber2, m.em_addNumber3, m.em_id
           FROM electricity e
           INNER JOIN masterelectricity m ON m.em_id = e.em_id";
@@ -23,8 +22,6 @@ while ($stmt->fetch()) {
         WHERE em_id = ?";
     $updateStmt = $conn->prepare($updateQuery);
     $updateStmt->bind_param("isi", $em_addNumber, $em_timestamp, $em_id);
-
-    // Execute the update statement
     $updateStmt->execute();
 }
 
@@ -32,4 +29,4 @@ while ($stmt->fetch()) {
 echo json_encode(["status" => "success", "message" => "ข้อมูลถูกสำรองเรียบร้อยแล้ว"]);
 
 $conn->close();
-?>
+?> -->

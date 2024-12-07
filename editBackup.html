@@ -14,10 +14,10 @@
     <div id="sticky-bar">
         <div>
             <a href="editDatabase.html" class="back-btn">จัดการข้อมูลไฟฟ้า</a>
-            <a href="#" class="back-btn" onclick="openExportModal()">Export</a>
+            <a href="#" class="back-btn" onclick="exportData()">Export</a>
         </div>
         <div>
-            <h2>จัดการข้อมูลย้อนหลัง</h2>
+            <h2>แสดงข้อมูล</h2>
         </div>
         <div>
             <div class="search-container">
@@ -107,7 +107,7 @@
 
 
     <!-- Modal สำหรับ Export ข้อมูล -->
-    <div id="exportModal" class="modal">
+    <!-- <div id="exportModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeExportModal()">&times;</span>
 
@@ -124,7 +124,7 @@
                 <button type="button" onclick="exportData()">ส่งออกข้อมูล</button>
             </form>
         </div>
-    </div>
+    </div> -->
 
     <div id="passwordModal" class="modal">
         <div class="modal-content">
@@ -136,6 +136,7 @@
     </div>
 
     <script src="editBackup.js"></script>
+    <script src="exportMaster.js"></script>
 </body>
 
 </html>
