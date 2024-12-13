@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>เพิ่มข้อมูลมิเตอร์ไฟฟ้า</title>
-    <!-- เชื่อมโยงไฟล์ CSS -->
     <link rel="stylesheet" href="data.css">
-    <!-- เชื่อมโยงไฟล์ JavaScript -->
     <script src="data.js" defer></script>
 </head>
 <body>
@@ -15,8 +13,8 @@
         <form id="dataForm" action="/Electricity/backend/data.php" method="POST">
             <div id="inputContainer">
                 <div class="inputRow">
-                    <input type="text" name="em_roomNo[]" placeholder="Room Number" required>
-                    <input type="text" name="em_meterID[]" placeholder="Meter Serial Number" required>
+                    <input type="text" name="Roomno[]" placeholder="Room Number" required>
+                    <input type="text" name="SN[]" placeholder="Meter Serial Number" required>
                 </div>
             </div>
             <button type="button" id="addRow">เพิ่มข้อมูลอีก</button>
@@ -25,7 +23,6 @@
         </form>
     </div>
 
-    <!-- ป๊อปอัพยืนยันการบันทึก -->
     <div id="popup" style="display:none;">
         <div class="popup-content">
             <h3>คุณต้องการบันทึกข้อมูลนี้หรือไม่?</h3>

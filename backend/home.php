@@ -20,8 +20,8 @@ try {
             exit;
         }
 
-        $stmt = $conn->prepare("SELECT em_roomNo, em_meterID FROM electricity WHERE em_sum = ?");
-        $stmt->bind_param("s", $qrcode); // ตรวจสอบ qrcode ใน em_sum
+        $stmt = $conn->prepare("SELECT Roomno, SN FROM electricity WHERE em_sum = ?");
+        $stmt->bind_param("s", $qrcode);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -30,8 +30,8 @@ try {
             echo json_encode([
                 'status' => 'success',
                 'data' => [
-                    'em_roomNo' => $row['em_roomNo'],
-                    'em_meterID' => $row['em_meterID']
+                    'Roomno' => $row['Roomno'],
+                    'SN' => $row['SN']
                 ]
             ]);
         } else {

@@ -5,12 +5,12 @@ $conn = dbconnect();
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // รับ ID จาก URL
     parse_str(file_get_contents("php://input"), $data);
-    $id = $data['id'];
+    $SN = $data['SN'];
 
     // ลบข้อมูล
-    $sql = "DELETE FROM electricity WHERE em_id = ?";
+    $sql = "DELETE FROM electricity WHERE SN = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("i", $SN);
 
     if ($stmt->execute()) {
         echo "ลบข้อมูลสำเร็จ";

@@ -24,8 +24,8 @@ document.getElementById('addRow').addEventListener('click', function () {
     const newRow = document.createElement('div');
     newRow.classList.add('inputRow');
     newRow.innerHTML = `
-        <input type="text" name="em_roomNo[]" placeholder="Room Number" required>
-        <input type="text" name="em_meterID[]" placeholder="Meter Serial Number" required>
+        <input type="text" name="Roomno[]" placeholder="Room Number" required>
+        <input type="text" name="SN[]" placeholder="Meter Serial Number" required>
     `;
     inputContainer.appendChild(newRow);
 });

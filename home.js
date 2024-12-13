@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Response from backend:', data); // Debug เพื่อดูข้อมูลที่ส่งกลับมา
             if (data.status === 'success') {
                 // อัปเดตช่อง Input ด้วยข้อมูลที่ดึงมา
-                document.getElementById("input2").value = data.data.em_roomNo || '';
-                document.getElementById("input3").value = data.data.em_meterID || '';
+                document.getElementById("input2").value = data.data.Roomno || '';
+                document.getElementById("input3").value = data.data.SN || '';
             } else {
                 console.error("Error:", data.message); // แสดงข้อความ Error
                 alert("ไม่พบข้อมูล: " + data.message);
@@ -68,12 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // ฟังก์ชันเมื่อกดปุ่ม Submit
     const submitBtn = document.getElementById("submitBtn");
     submitBtn.addEventListener("click", function () {
-        const em_addNumber = document.getElementById("input4").value;
+        const em_month = document.getElementById("input4").value;
 
         const em_qrcode = document.getElementById("input1").value;
     
         // ตรวจสอบว่า input4 มีค่าไหม
-        if (!em_addNumber) {
+        if (!em_month) {
             alert("กรุณากรอกหมายเลขเพิ่มเติม");
             return;
         }
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({
                 qrcode: em_qrcode,
-                addNumber: em_addNumber
+                month: em_month
             })
         })
         .then(response => {

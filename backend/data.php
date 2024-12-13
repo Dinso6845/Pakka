@@ -1,38 +1,46 @@
 <?php
-// เชื่อมต่อฐานข้อมูล
 include('connect.php');
-$conn = dbconnect(); // ใช้ฟังก์ชัน dbconnect ที่เชื่อมต่อฐานข้อมูล
+$conn = dbconnect(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // รับข้อมูลจากฟอร์ม
-    $roomNos = $_POST['em_roomNo']; // รับข้อมูล Room Number
-    $meterIDs = $_POST['em_meterID']; // รับข้อมูล Meter Serial Number
+    $Roomno = $_POST['Roomno'];
+    $SN = $_POST['SN'];
 
-    // ใช้คำสั่ง SQL สำหรับการเพิ่มข้อมูล
-    $sql = "INSERT INTO `electricity` (`em_roomNo`, `em_meterID`, `em_sum`) 
+    // ตรวจสอบข้อมูลก่อน
+    if (empty($Roomno) || empty($SN)) {
+        die("<script>alert('ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบข้อมูล'); window.location.href = '../frontend/data.html';</script>");
+    }
+
+    // สร้างคำสั่ง SQL สำหรับเพิ่มข้อมูล
+    $sql = "INSERT INTO `electricity` (`Roomno`, `SN`, `em_sum`) 
             VALUES (?, ?, ?)";
 
-    // เตรียมคำสั่ง SQL ด้วย MySQLi
+    // เตรียมคำสั่ง SQL
     $stmt = $conn->prepare($sql);
-    
+
     if ($stmt === false) {
-        die("ERROR: " . $conn->error); // ถ้ามีข้อผิดพลาดในการเตรียมคำสั่ง SQL
+        die("SQL Error: " . $conn->error);
     }
 
-    // ใช้การวนลูปเพื่อบันทึกข้อมูลทีละแถว
-    for ($i = 0; $i < count($roomNos); $i++) {
-        // สร้างค่า em_sum จากการรวม em_roomNo และ em_meterID ด้วย "-"
-        $sum = $roomNos[$i] . "-" . $meterIDs[$i];
+    // วนลูปเพื่อเพิ่มข้อมูลทีละแถว
+    for ($i = 0; $i < count($Roomno); $i++) {
+        // $SN = uniqid();  // สร้างค่า SN ที่ไม่ซ้ำกัน
+        $sum = $Roomno[$i] . "-" . $SN[$i];  // ใช้ $SN แทน $SN[$i]
 
-        // Binding ข้อมูลในแต่ละแถว
-        $stmt->bind_param('sss', $roomNos[$i], $meterIDs[$i], $sum);
+        // Binding ข้อมูลที่ต้องการเพิ่ม
+        $stmt->bind_param('sss', $Roomno[$i], $SN[$i], $sum);  // เปลี่ยนจาก 'ssss' เป็น 'sss'
 
-        // Execute การบันทึกข้อมูล
-        $stmt->execute();
+        // Execute การเพิ่มข้อมูล
+        if (!$stmt->execute()) {
+            echo "Error inserting Roomno={$Roomno[$i]}, SN={$SN[$i]}: {$stmt->error}<br>";
+        }
     }
 
-    // แจ้งว่าเพิ่มข้อมูลสำเร็จ
-    echo "<script>alert('บันทึกข้อมูลสำเร็จ!'); window.location.href = '../frontend/data.html';</script>";
+    // ปิดการเชื่อมต่อ
+    $stmt->close();
+    $conn->close();
+
+    echo "<script>window.location.href = '../frontend/data.html';</script>";
 } else {
     echo "<script>alert('ข้อมูลไม่ครบถ้วน กรุณาตรวจสอบข้อมูล'); window.location.href = '../frontend/data.html';</script>";
 }

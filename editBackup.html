@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <!-- ช่องค้นหา -->
     <div id="sticky-bar">
         <div>
             <a href="editDatabase.html" class="back-btn">จัดการข้อมูลไฟฟ้า</a>
@@ -32,30 +31,28 @@
     <table>
         <thead>
             <tr>
-                <th>รหัส</th>
                 <th>วันที่</th>
                 <th>หมายเลขห้อง</th>
                 <th>หมายเลขเครื่องมิเตอร์</th>
-                <th>4</th>
-                <th>3</th>
-                <th>2</th>
-                <th>1</th>
+                <th>มิเตอร์เดือน 4</th>
+                <th>มิเตอร์เดือน 3</th>
+                <th>มิเตอร์เดือน 2</th>
+                <th>มิเตอร์เดือน 1</th>
                 <th>เลขมิเตอร์ล่าสุด</th>
-                <th>จำนวนหน่อย</th>
+                <th>จำนวนหน่วย</th>
                 <th>การเปลี่ยนแปลง (%)</th>
-
-                <th>จัดการ</th>
             </tr>
         </thead>
         <tbody id="data-table">
             <tr>
-                <td colspan="7">กำลังโหลดข้อมูล...</td>
+                <td colspan="10">กำลังโหลดข้อมูล...</td>
             </tr>
         </tbody>
     </table>
+    
 
     <!-- Modal สำหรับแก้ไขข้อมูล -->
-    <div id="editModal" class="modal">
+    <!-- <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
 
@@ -91,10 +88,10 @@
             </form>
 
         </div>
-    </div>
+    </div> -->
 
     <!-- Modal สำหรับยืนยันการลบข้อมูล -->
-    <div id="deleteModal" class="modal">
+    <!-- <div id="deleteModal" class="modal">
         <div class="modal-content">
             <span class="close" id="deleteCancelBtn">&times;</span>
 
@@ -103,11 +100,11 @@
             <button id="deleteConfirmBtn">ยืนยัน</button>
             <button id="deleteCancelBtn">ยกเลิก</button>
         </div>
-    </div>
+    </div> -->
 
 
     <!-- Modal สำหรับ Export ข้อมูล -->
-    <!-- <div id="exportModal" class="modal">
+    <div id="exportModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeExportModal()">&times;</span>
 
@@ -124,16 +121,16 @@
                 <button type="button" onclick="exportData()">ส่งออกข้อมูล</button>
             </form>
         </div>
-    </div> -->
+    </div>
 
-    <div id="passwordModal" class="modal">
+    <!-- <div id="passwordModal" class="modal">
         <div class="modal-content">
             <span id = "closePasswordModalBtn"class="close">&times;</span>
             <h3>กรุณากรอกรหัสเพื่อดำเนินการ</h3>
             <input type="password" id="passwordInput" placeholder="กรอกรหัส">
             <button id="submitPasswordBtn">ยืนยัน</button>
         </div>
-    </div>
+    </div> -->
 
     <script src="editBackup.js"></script>
     <script src="exportMaster.js"></script>

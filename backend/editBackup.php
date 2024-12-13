@@ -2,41 +2,54 @@
 include('connect.php');
 $conn = dbconnect();
 
-// รับคำค้นหาจาก URL (ผ่าน GET method)
 $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+$sql_update = "
+    UPDATE electricity e
+    JOIN ewgreport m ON e.SN = m.SN
+    SET e.unit = (e.em_month - m.Meter12)
+";
+$conn->query($sql_update);
 
 // ถ้ามีคำค้นหา
 if (!empty($search)) {
-    $sql = "SELECT m.em_id, m.em_timestamp, m.em_roomNo, m.em_meterID, m.em_addNumber, m.em_addNumber1, m.em_addNumber2, m.em_addNumber3, e.em_addNumber AS em_addNumberElectricity, e.em_addNumber AS em_addNumberElectricity,
-    (COALESCE(e.`em_addNumber`, 0) - COALESCE(m.`em_addNumber`, 0)) AS `difference`,
-                    (
-    (
-        (COALESCE(e.em_addNumber, 0) - COALESCE(m.em_addNumber, 0)) - 
+    $sql = "SELECT DISTINCT
+        e.em_timestamp,
+        e.Roomno,
+        e.SN,
+        m.Meter09, 
+        m.Meter10, 
+        m.Meter11, 
+        m.Meter12, 
+        e.unit, 
+        e.em_month AS MonthElectricity,
+        (
+            (COALESCE(e.em_month, 0) - COALESCE(m.Meter12, 0)) - 
+            (
+                (
+                    (COALESCE(e.em_month, 0) - COALESCE(m.Meter12, 0)) + 
+                    (COALESCE(m.Meter12, 0) - COALESCE(m.Meter11, 0)) + 
+                    (COALESCE(m.Meter11, 0) - COALESCE(m.Meter10, 0)) + 
+                    (COALESCE(m.Meter10, 0) - COALESCE(m.Meter09, 0))
+                ) / 4
+            )
+        ) / 
         (
             (
-                (COALESCE(e.em_addNumber, 0) - COALESCE(m.em_addNumber, 0)) + 
-                (COALESCE(m.em_addNumber, 0) - COALESCE(m.em_addNumber1, 0)) + 
-                (COALESCE(m.em_addNumber1, 0) - COALESCE(m.em_addNumber2, 0)) + 
-                (COALESCE(m.em_addNumber2, 0) - COALESCE(m.em_addNumber3, 0))
+                (COALESCE(e.em_month, 0) - COALESCE(m.Meter12, 0)) + 
+                (COALESCE(m.Meter12, 0) - COALESCE(m.Meter11, 0)) + 
+                (COALESCE(m.Meter11, 0) - COALESCE(m.Meter10, 0)) + 
+                (COALESCE(m.Meter10, 0) - COALESCE(m.Meter09, 0))
             ) / 4
-        )
-    ) / 
-    (
-        (
-            (COALESCE(e.em_addNumber, 0) - COALESCE(m.em_addNumber, 0)) + 
-            (COALESCE(m.em_addNumber, 0) - COALESCE(m.em_addNumber1, 0)) + 
-            (COALESCE(m.em_addNumber1, 0) - COALESCE(m.em_addNumber2, 0)) + 
-            (COALESCE(m.em_addNumber2, 0) - COALESCE(m.em_addNumber3, 0))
-        ) / 4
-    )
-) * 100 AS percentage_change
-            FROM masterelectricity m
-            LEFT JOIN electricity e ON m.em_id = e.em_id
-            WHERE m.em_roomNo LIKE ? OR m.em_meterID LIKE ? OR m.em_addNumber LIKE ? OR m.em_addNumber1 LIKE ? OR m.em_addNumber2 LIKE ? OR m.em_addNumber3 LIKE ? OR e.em_addNumber LIKE ?";
+        ) * 100 AS percentage_change
+    FROM ewgreport m
+    LEFT JOIN electricity e ON m.SN = e.SN
+    WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?
+    ";
     
     if ($stmt = $conn->prepare($sql)) {
         $searchParam = '%' . $search . '%';
-        
+
         // ใช้ bind_param เพื่อป้องกัน SQL Injection
         $stmt->bind_param("sssssss", $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam);
 
@@ -59,52 +72,68 @@ if (!empty($search)) {
         echo json_encode(['error' => 'ไม่สามารถเตรียมคำสั่ง SQL ได้']);
     }
 } else {
-    // หากไม่มีคำค้นหา ให้ดึงข้อมูลทั้งหมด
-    $sql = "SELECT m.em_id, m.em_timestamp, m.em_roomNo, m.em_meterID, m.em_addNumber, m.em_addNumber1, m.em_addNumber2, m.em_addNumber3, e.em_addNumber AS em_addNumberElectricity, e.em_addNumber AS em_addNumberElectricity,
-    (COALESCE(e.`em_addNumber`, 0) - COALESCE(m.`em_addNumber`, 0)) AS `difference`,
-    (
-    (
-        (COALESCE(e.em_addNumber, 0) - COALESCE(m.em_addNumber, 0)) - 
+    $sql = "SELECT
+        e.em_timestamp,
+        e.Roomno,
+        e.SN,
+        m.Meter09, 
+        m.Meter10, 
+        m.Meter11, 
+        m.Meter12, 
+        e.unit, 
+        e.em_month AS MonthElectricity,
+        (
+            (COALESCE(e.em_month, 0) - COALESCE(m.Meter12, 0)) - 
+            (
+                (
+                    (COALESCE(e.em_month, 0) - COALESCE(m.Meter12, 0)) + 
+                    (COALESCE(m.Meter12, 0) - COALESCE(m.Meter11, 0)) + 
+                    (COALESCE(m.Meter11, 0) - COALESCE(m.Meter10, 0)) + 
+                    (COALESCE(m.Meter10, 0) - COALESCE(m.Meter09, 0))
+                ) / 4
+            )
+        ) / 
         (
             (
-                (COALESCE(e.em_addNumber, 0) - COALESCE(m.em_addNumber, 0)) + 
-                (COALESCE(m.em_addNumber, 0) - COALESCE(m.em_addNumber1, 0)) + 
-                (COALESCE(m.em_addNumber1, 0) - COALESCE(m.em_addNumber2, 0)) + 
-                (COALESCE(m.em_addNumber2, 0) - COALESCE(m.em_addNumber3, 0))
+                (COALESCE(e.em_month, 0) - COALESCE(m.Meter12, 0)) + 
+                (COALESCE(m.Meter12, 0) - COALESCE(m.Meter11, 0)) + 
+                (COALESCE(m.Meter11, 0) - COALESCE(m.Meter10, 0)) + 
+                (COALESCE(m.Meter10, 0) - COALESCE(m.Meter09, 0))
             ) / 4
-        )
-    ) / 
-    (
-        (
-            (COALESCE(e.em_addNumber, 0) - COALESCE(m.em_addNumber, 0)) + 
-            (COALESCE(m.em_addNumber, 0) - COALESCE(m.em_addNumber1, 0)) + 
-            (COALESCE(m.em_addNumber1, 0) - COALESCE(m.em_addNumber2, 0)) + 
-            (COALESCE(m.em_addNumber2, 0) - COALESCE(m.em_addNumber3, 0))
-        ) / 4
-    )
-) * 100 AS percentage_change
+        ) * 100 AS percentage_change
+    FROM ewgreport m
+    LEFT JOIN electricity e ON m.SN = e.SN
+    WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?
+    ";
 
+    if ($stmt = $conn->prepare($sql)) {
+        $searchParam = '%'; // ถ้าไม่มีคำค้นหาให้ค้นหาทุกอย่าง
 
+        // ใช้ bind_param เพื่อป้องกัน SQL Injection
+        $stmt->bind_param("sssssss", $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam);
 
-        FROM masterelectricity m
-        LEFT JOIN electricity e ON m.em_id = e.em_id";
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    $result = $conn->query($sql);
-
-    $data = [];
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            // เช็คค่า percentage_change ถ้ามันน้อยกว่า 5% หรือมากกว่า 5%
-            if (abs($row['percentage_change']) > 5) {
-                $row['warning'] = "เตือน: อาจมีข้อผิดพลาด";
-            }else {
-                $row['warning'] = "ปกติ";
+        // ถ้ามีข้อมูล
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                if (abs($row['percentage_change']) > 20) {
+                    $row['warning'] = "เตือน: อาจมีข้อผิดพลาด";
+                } else {
+                    $row['warning'] = "ปกติ";
+                }
+                $data[] = $row;
             }
-            $data[] = $row;
+            echo json_encode($data);
+        } else {
+            echo json_encode([]);
         }
-        echo json_encode($data);
+
+        $stmt->close();
     } else {
-        echo json_encode([]);
+        echo json_encode(['error' => 'ไม่สามารถเตรียมคำสั่ง SQL ได้']);
     }
 }
 

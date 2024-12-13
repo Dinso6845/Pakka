@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const editForm = document.getElementById("editForm");
     const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
     const deleteCancelBtn = document.getElementById("deleteCancelBtn"); 
-    let deleteId = null;
+    let deleteSN = null;
 
     // ฟังก์ชันโหลดข้อมูลทั้งหมดหรือค้นหาตามคำค้นหา
     function loadData(searchQuery = '') {
@@ -36,29 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderTable(data) {
         if (data.length > 0) {
             tableBody.innerHTML = "";
-            data.forEach(row => {
+            data.forEach((row, index) => {
                 // ตรวจสอบว่า em_timestamp เป็น null หรือไม่
                 let formattedDate = "";
-                if (row.em_timestamp) {
-                    const timestamp = new Date(row.em_timestamp); // แปลงเป็น Date object
+                if (row.em_timestamp && row.em_timestamp !== '0000-00-00 00:00:00') {
+                    const timestamp = new Date(row.em_timestamp);
                     formattedDate = timestamp.toLocaleDateString("th-TH", {
                         day: "2-digit",
                         month: "2-digit",
                         year: "numeric"
                     });
+                } else {
+                    formattedDate = '00/00/0000';
                 }
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                    <td>${row.em_id}</td>
+                    <td>${index + 1}</td>
                     <td>${formattedDate}</td> 
-                    <td>${row.em_roomNo}</td>
-                    <td>${row.em_meterID}</td>
-                    <td>${row.em_sum}</td>
-                    <td>${row.em_addNumber}</td>
+                    <td>${row.Roomno}</td>
+                    <td>${row.SN}</td>
+                    <td>${row.em_month}</td>
                     <td>
-                        <button onclick="editRow(${row.em_id}, '${row.em_roomNo}', '${row.em_meterID}', '${row.em_addNumber}')" class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                        <button onclick="showDeleteModal(${row.em_id})" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        <button onclick="editRow('${row.Roomno}', '${row.SN}', '${row.em_month}')" class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                        <button onclick="showDeleteModal(${row.SN})" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 `;
                 tableBody.appendChild(tr);
@@ -75,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const search = this.value.trim();
 
         if (!search) {
-            // ถ้าไม่มีคำค้นหาให้กลับไปหน้า editdatabase.html
             window.location.href = "editDatabase.html";
             return;
         }
@@ -98,11 +98,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ฟังก์ชันแก้ไขข้อมูล
-    window.editRow = function (id, roomNo, meterID, addNumber) {
-        document.getElementById("edit_id").value = id;
-        document.getElementById("edit_roomNo").value = roomNo;
-        document.getElementById("edit_meterID").value = meterID;
-        document.getElementById("edit_addNumber").value = addNumber;
+    window.editRow = function (Roomno, SN, Month) {
+        document.getElementById("edit_Roomno").value = Roomno;
+        document.getElementById("edit_SN").value = SN;
+        document.getElementById("edit_Month").value = Month;
         modal.style.display = "block";
     };
 
@@ -149,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // ฟังก์ชันแสดง Modal สำหรับลบข้อมูล
-    window.showDeleteModal = function (id) {
-        deleteId = id; 
+    window.showDeleteModal = function (SN) {
+        deleteSN = SN; 
         deleteModal.style.display = "block";
     };
 
@@ -161,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: `id=${deleteId}`,
+            body: `SN=${deleteSN}`,
         })
             .then(response => response.text())
             .then(result => {

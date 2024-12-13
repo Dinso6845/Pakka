@@ -34,11 +34,11 @@
     <table>
         <thead>
             <tr>
-                <th>รหัส</th>
+                <th>อันดับ</th>
                 <th>วันที่</th>
                 <th>หมายเลขห้อง</th>
                 <th>หมายเลขเครื่องมิเตอร์</th>
-                <th>เลขQR Code</th>
+                <!-- <th>เลขQR Code</th> -->
                 <th>เลขมิเตอร์</th>
                 <th>จัดการ</th>
             </tr>
@@ -58,18 +58,18 @@
             <h2>แก้ไขข้อมูล</h2>
             
             <form id="editForm">
-                <input type="hidden" id="edit_id" name="em_id">
+                <input type="hidden" id="index" name="index">
                 <div class="form-group">
                     <label>หมายเลขห้อง:</label>
-                    <input type="text" id="edit_roomNo" name="em_roomNo" required>
+                    <input type="text" id="edit_Roomno" name="Roomno" required>
                 </div>
                 <div class="form-group">
                     <label>หมายเลขเครื่องมิเตอร์:</label>
-                    <input type="text" id="edit_meterID" name="em_meterID" required>
+                    <input type="text" id="edit_SN" name="SN" required>
                 </div>
                 <div class="form-group">
                     <label>เลขมิเตอร์:</label>
-                    <input type="text" id="edit_addNumber" name="em_addNumber" required>
+                    <input type="text" id="edit_Month" name="em_month" required>
                 </div>
                 <button type="submit">บันทึกการเปลี่ยนแปลง</button>
             </form>

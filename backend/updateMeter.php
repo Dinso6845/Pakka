@@ -15,9 +15,9 @@ try {
 
     $inputData = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($inputData['qrcode']) && isset($inputData['addNumber'])) {
+    if (isset($inputData['qrcode']) && isset($inputData['month'])) {
         $qrcode = trim($inputData['qrcode']);
-        $addNumber = trim($inputData['addNumber']);
+        $month = trim($inputData['month']);
 
         if ($conn->connect_error) {
             http_response_code(500);
@@ -25,8 +25,8 @@ try {
             exit;
         } 
 
-        $stmt = $conn->prepare("UPDATE electricity SET em_addNumber = ?, em_timestamp = now() WHERE em_sum = ?");
-        $stmt->bind_param("ss", $addNumber, $qrcode);
+        $stmt = $conn->prepare("UPDATE electricity SET em_month = ?, em_timestamp = now() WHERE em_sum = ?");
+        $stmt->bind_param("ss", $month, $qrcode);
 
         if ($stmt->execute()) {
             echo json_encode(['status' => 'success', 'message' => 'Data updated successfully']);

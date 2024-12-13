@@ -7,18 +7,18 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     
-    $id = $data['em_id'];
-    $roomNo = $data['em_roomNo'];
-    $meterID = $data['em_meterID'];
-    $addNumber = $data['em_addNumber'];
+    // $id = $data['em_id'];
+    $Roomno = $data['Roomno'];
+    $SN = $data['SN'];
+    $Month = $data['em_month'];
     
-    $sum = $roomNo . '-' . $meterID;
+    $sum = $Roomno . '-' . $Month;
 
     $sql = "UPDATE electricity 
-            SET em_roomNo = ?, em_meterID = ?, em_addNumber = ?, em_sum = ?
-            WHERE em_id = ?";
+            SET Roomno = ?, SN = ?, em_month = ?, em_sum = ?
+            WHERE SN = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", $roomNo, $meterID, $addNumber, $sum, $id);
+    $stmt->bind_param("sssss", $Roomno, $SN, $Month, $SN, $sum);
 
     if ($stmt->execute()) {
         echo json_encode(['status' => 'success', 'message' => 'อัพเดทข้อมูลสำเร็จ']);
