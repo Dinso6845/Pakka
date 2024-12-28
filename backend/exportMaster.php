@@ -7,7 +7,7 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // ดึงข้อมูลจาก 2 ตาราง electricity และ ewgreport
 $sql = "SELECT DISTINCT
-        e.em_timestamp,
+        e.DatePoint,
         e.Roomno,
         e.SN,
         m.Meter09, 
@@ -93,10 +93,10 @@ if ($stmt = $conn->prepare($sql)) {
               </tr>";
 
         while ($row = $result->fetch_assoc()) {
-            if ($row['em_timestamp'] == '0000-00-00 00:00:00') {
+            if ($row['DatePoint'] == '0000-00-00 00:00:00') {
                 $formattedDate = '00/00/0000 00:00';
             } else {
-                $formattedDate = date('d-m-', strtotime($row['em_timestamp'])) . (date('Y', strtotime($row['em_timestamp'])) + 543) . ' ' . date('H:i:s', strtotime($row['em_timestamp']));
+                $formattedDate = date('d-m-', strtotime($row['DatePoint'])) . (date('Y', strtotime($row['DatePoint'])) + 543) . ' ' . date('H:i:s', strtotime($row['DatePoint']));
             }
 
             $percentage_change = $row['percentage_change'];

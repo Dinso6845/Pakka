@@ -1,8 +1,8 @@
 <?php
 include('connect.php');
 $conn = dbconnect();
-
 $search = isset($_GET['search']) ? $_GET['search'] : '';
+
 
 // ถ้ามีคำค้นหา
 if (!empty($search)) {
@@ -35,7 +35,7 @@ if (!empty($search)) {
         echo json_encode(['error' => 'ไม่สามารถเตรียมคำสั่ง SQL ได้']);
     }
 } else {
-    $sql = "SELECT  em_timestamp, Roomno, SN, em_month FROM electricity";
+    $sql = "SELECT  DatePoint, Roomno, SN, em_month FROM electricity";
     $result = $conn->query($sql);
 
     $data = [];

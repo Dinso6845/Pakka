@@ -7,7 +7,7 @@ $endDate = $_GET['end_date'];
 
 
 // ตรวจสอบว่ามีข้อมูลในช่วงวันที่ที่เลือก
-$sqlCheck = "SELECT COUNT(*) AS count FROM electricity WHERE em_timestamp BETWEEN '$startDate' AND '$endDate'";
+$sqlCheck = "SELECT COUNT(*) AS count FROM electricity WHERE DatePoint BETWEEN '$startDate' AND '$endDate'";
 $resultCheck = $conn->query($sqlCheck);
 $rowCheck = $resultCheck->fetch_assoc();
 
@@ -16,9 +16,9 @@ if ($rowCheck['count'] == 0) {
 }
 
 // ดึงข้อมูล
-$sql = "SELECT em_timestamp, Roomno, SN, em_month 
+$sql = "SELECT DatePoint, Roomno, SN, em_month 
         FROM electricity 
-        WHERE em_timestamp BETWEEN '$startDate' AND '$endDate' 
+        WHERE DatePoint BETWEEN '$startDate' AND '$endDate' 
         ORDER BY SN ASC"; // เปลี่ยนจาก DESC เป็น ASC
 
 $result = $conn->query($sql);
@@ -41,10 +41,10 @@ if ($result->num_rows > 0) {
             <th>เลขมิเตอร์</th>
           </tr>";
     while ($row = $result->fetch_assoc()) {
-        if ($row['em_timestamp'] == '0000-00-00 00:00:00') {
+        if ($row['DatePoint'] == '0000-00-00 00:00:00') {
             $formattedDate = '00/00/0000 00:00';
         } else {
-            $formattedDate = date('d-m-', strtotime($row['em_timestamp'])) . (date('Y', strtotime($row['em_timestamp'])) + 543) . ' ' . date('H:i:s', strtotime($row['em_timestamp']));
+            $formattedDate = date('d-m-', strtotime($row['DatePoint'])) . (date('Y', strtotime($row['DatePoint'])) + 543) . ' ' . date('H:i:s', strtotime($row['DatePoint']));
         }
         
         echo "<tr>

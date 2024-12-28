@@ -2,14 +2,14 @@
 include('connect.php'); 
 $conn = dbconnect(); 
 
-$query = "SELECT e.em_addNumber, e.em_timestamp, m.em_addNumber1, m.em_addNumber2, m.em_addNumber3, m.em_id
+$query = "SELECT e.em_addNumber, e.DatePoint, m.em_addNumber1, m.em_addNumber2, m.em_addNumber3, m.em_id
           FROM electricity e
           INNER JOIN masterelectricity m ON m.em_id = e.em_id";
 
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $stmt->store_result();
-$stmt->bind_result($em_addNumber, $em_timestamp, $em_addNumber1, $em_addNumber2, $em_addNumber3, $em_id);
+$stmt->bind_result($em_addNumber, $DatePoint, $em_addNumber1, $em_addNumber2, $em_addNumber3, $em_id);
 
 while ($stmt->fetch()) {
     
@@ -18,10 +18,10 @@ while ($stmt->fetch()) {
         em_addNumber2 = COALESCE(em_addNumber1, em_addNumber),
         em_addNumber1 = COALESCE(em_addNumber, em_addNumber),
         em_addNumber = ?,
-        em_timestamp = ?
+        DatePoint = ?
         WHERE em_id = ?";
     $updateStmt = $conn->prepare($updateQuery);
-    $updateStmt->bind_param("isi", $em_addNumber, $em_timestamp, $em_id);
+    $updateStmt->bind_param("isi", $em_addNumber, $DatePoint, $em_id);
     $updateStmt->execute();
 }
 

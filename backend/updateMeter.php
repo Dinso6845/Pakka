@@ -25,7 +25,7 @@ try {
             exit;
         } 
 
-        $stmt = $conn->prepare("UPDATE electricity SET em_month = ?, em_timestamp = now() WHERE em_sum = ?");
+        $stmt = $conn->prepare("UPDATE electricity SET em_month = ?, DatePoint = now() WHERE em_sum = ?");
         $stmt->bind_param("ss", $month, $qrcode);
 
         if ($stmt->execute()) {

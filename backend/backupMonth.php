@@ -2,9 +2,9 @@
 include('connect.php');
 $conn = dbconnect();
 
-$query = "SELECT DISTINCT MONTH(em_timestamp) AS mm 
+$query = "SELECT DISTINCT MONTH(DatePoint) AS mm 
           FROM masterelectricity 
-          WHERE em_timestamp IS NOT NULL AND MONTH(em_timestamp) = MONTH(NOW()) 
+          WHERE DatePoint IS NOT NULL AND MONTH(DatePoint) = MONTH(NOW()) 
           LIMIT 1";
 $result = $conn->query($query);
 

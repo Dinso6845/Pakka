@@ -14,7 +14,7 @@ $conn->query($sql_update);
 // ถ้ามีคำค้นหา
 if (!empty($search)) {
     $sql = "SELECT DISTINCT
-        e.em_timestamp,
+        e.DatePoint,
         e.Roomno,
         e.SN,
         m.Meter09, 
@@ -72,8 +72,8 @@ if (!empty($search)) {
         echo json_encode(['error' => 'ไม่สามารถเตรียมคำสั่ง SQL ได้']);
     }
 } else {
-    $sql = "SELECT
-        e.em_timestamp,
+    $sql = "SELECT DISTINCT
+        e.DatePoint,
         e.Roomno,
         e.SN,
         m.Meter09, 
