@@ -16,7 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         fetch(url)
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
             .then(text => {
                 try {
                     const data = JSON.parse(text);
@@ -37,10 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.length > 0) {
             tableBody.innerHTML = "";
             data.forEach((row, index) => {
-                // ตรวจสอบว่า em_timestamp เป็น null หรือไม่
+                // ตรวจสอบว่า DatePoint เป็น null หรือไม่
                 let formattedDate = "";
-                if (row.em_timestamp && row.em_timestamp !== '0000-00-00 00:00:00') {
-                    const timestamp = new Date(row.em_timestamp);
+                if (row.DatePoint && row.DatePoint !== '0000-00-00 00:00:00') {
+                    const timestamp = new Date(row.DatePoint);
                     formattedDate = timestamp.toLocaleDateString("th-TH", {
                         day: "2-digit",
                         month: "2-digit",
@@ -68,8 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
             tableBody.innerHTML = `<tr><td colspan="7">ไม่พบข้อมูลที่ค้นหา</td></tr>`;
         }
     }
-
-
 
     // ฟังก์ชันค้นหาอัตโนมัติเมื่อพิมพ์
     document.getElementById("searchInput").addEventListener("input", function () {
@@ -181,9 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const baseURL = "http://127.0.0.1/Electricity/frontend/editDatabase.html";
-        const encodedURL = encodeURIComponent(baseURL);
-    
-        window.history.replaceState({}, "", `?url=${encodedURL}`);
-      
+    const encodedURL = encodeURIComponent(baseURL);
+    window.history.replaceState({}, "", `?url=${encodedURL}`);
+
     loadData(); 
 });

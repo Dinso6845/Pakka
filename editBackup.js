@@ -74,8 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
             tableBody.innerHTML = "";
             data.forEach(row => {
                 let formattedDate = "";
-                if (row.em_timestamp && row.em_timestamp !== '0000-00-00 00:00:00') {
-                    const timestamp = new Date(row.em_timestamp);
+                if (row.DatePoint && row.DatePoint !== '0000-00-00 00:00:00') {
+                    const timestamp = new Date(row.DatePoint);
                     formattedDate = timestamp.toLocaleDateString("th-TH", {
                         day: "2-digit",
                         month: "2-digit",
