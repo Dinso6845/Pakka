@@ -117,7 +117,7 @@ button[type="submit"]:active {
 }
 
 /* สำหรับมือถือ */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
     .container {
         width: 100%; /* ปรับขนาดให้พอดีกับหน้าจอมือถือ */
         padding: 15px; /* ลด padding เพื่อให้พอดีกว่าเดิม */
