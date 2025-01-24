@@ -28,12 +28,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // ฟังก์ชันสำหรับดึงข้อมูลจากฐานข้อมูล
     function fetchData(qrcode) {
         console.log('Sending QR code:', qrcode); // Debug เพื่อดู QR Code ที่ส่งไป
+
+        // แยกข้อมูลหลังจากเครื่องหมาย -
+        const sn = qrcode.split('-').pop(); // ดึงข้อมูลหลังจากเครื่องหมาย -
+
         fetch('../backend/home.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ qrcode: qrcode }) // ส่งค่า QR Code ในรูป JSON
+            body: JSON.stringify({ qrcode: sn }) // ส่งค่า SN ในรูป JSON
         })
         .then(response => {
             if (!response.ok) {
@@ -85,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                qrcode: em_qrcode,
+                qrcode: em_qrcode.split('-').pop(),
                 month: em_month
             })
         })
@@ -101,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("input2").value = null;
                 document.getElementById("input3").value = null;
                 document.getElementById("input4").value = null;
-                console.log('หลังกดปุมบันทึก : ');
+                // console.log('หลังกดปุมบันทึก : ');
             } else {
                 alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
             }

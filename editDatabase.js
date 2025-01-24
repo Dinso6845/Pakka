@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
     const deleteCancelBtn = document.getElementById("deleteCancelBtn"); 
     let deleteSN = null;
+    let deleteRoomno = null;
 
     // ฟังก์ชันโหลดข้อมูลทั้งหมดหรือค้นหาตามคำค้นหา
     function loadData(searchQuery = '') {
@@ -40,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ฟังก์ชันแสดงข้อมูลในตาราง
     function renderTable(data) {
         if (data.length > 0) {
+            data.sort((a, b) => a.Roomno.localeCompare(b.Roomno));
             tableBody.innerHTML = "";
             data.forEach((row, index) => {
-                // ตรวจสอบว่า DatePoint เป็น null หรือไม่
                 let formattedDate = "";
                 if (row.DatePoint && row.DatePoint !== '0000-00-00 00:00:00') {
                     const timestamp = new Date(row.DatePoint);
@@ -64,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td>${row.em_month}</td>
                     <td>
                         <button onclick="editRow('${row.Roomno}', '${row.SN}', '${row.em_month}')" class="edit-btn"><i class="fas fa-pencil-alt"></i></button>
-                        <button onclick="showDeleteModal(${row.SN})" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
+                        <button onclick="showDeleteModal('${row.Roomno}', '${row.SN}')" class="delete-btn"><i class="fas fa-trash-alt"></i></button>
                     </td>
                 `;
                 tableBody.appendChild(tr);
@@ -96,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("เกิดข้อผิดพลาดในการค้นหา");
+                // alert("เกิดข้อผิดพลาดในการค้นหา");
             });
     });
 
@@ -134,7 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify(data),
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => { 
+                        throw new Error(`Error: ${response.status} ${text}`);
+                    });
+                }
+                return response.json();
+            })
             .then(result => {
                 if (result.status === "success") {
                     alert(result.message);
@@ -151,23 +159,28 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // ฟังก์ชันแสดง Modal สำหรับลบข้อมูล
-    window.showDeleteModal = function (SN) {
-        deleteSN = SN; 
+    window.showDeleteModal = function (Roomno, SN) {
+        deleteRoomno = Roomno;
+        deleteSN = SN;
         deleteModal.style.display = "block";
     };
 
     // ฟังก์ชันยืนยันการลบ
     deleteConfirmBtn.onclick = function () {
+        const params = {
+            Roomno: deleteRoomno,
+            SN: deleteSN
+        };
         fetch(`../backend/deleteData.php`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Type": "application/json", // ส่งเป็น JSON
             },
-            body: `SN=${deleteSN}`,
+            body: JSON.stringify(params), // ส่งข้อมูลในรูปแบบ JSON
         })
             .then(response => response.text())
             .then(result => {
-                alert(result);
+                // alert(result);
                 deleteModal.style.display = "none"; 
                 loadData();
             })
@@ -176,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("เกิดข้อผิดพลาดในการลบข้อมูล");
                 deleteModal.style.display = "none"; 
             });
-    };
+    };       
 
     // ฟังก์ชันยกเลิกการลบ
     deleteCancelBtn.onclick = function () {

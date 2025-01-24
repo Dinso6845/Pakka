@@ -6,7 +6,7 @@ $conn = dbconnect();
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // ดึงข้อมูลจาก 2 ตาราง electricity และ ewgreport
-$sql = "SELECT DISTINCT
+$sql = "SELECT
         e.DatePoint,
         e.Roomno,
         e.SN,
@@ -37,7 +37,8 @@ $sql = "SELECT DISTINCT
         ) * 100 AS percentage_change
     FROM ewgreport m
     LEFT JOIN electricity e ON m.SN = e.SN
-    WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?";
+    WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?
+    GROUP BY e.Roomno, e.SN";
 
 if ($stmt = $conn->prepare($sql)) {
     $searchParam = '%' . $search . '%';

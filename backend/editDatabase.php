@@ -6,7 +6,7 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 
 // ถ้ามีคำค้นหา
 if (!empty($search)) {
-    $sql = "SELECT Roomno, SN, em_month
+    $sql = "SELECT DISTINCT Roomno, SN, em_month
             FROM electricity 
             WHERE Roomno LIKE ? OR SN LIKE ? OR em_month LIKE ?";
     
@@ -35,7 +35,7 @@ if (!empty($search)) {
         echo json_encode(['error' => 'ไม่สามารถเตรียมคำสั่ง SQL ได้']);
     }
 } else {
-    $sql = "SELECT  DatePoint, Roomno, SN, em_month FROM electricity";
+    $sql = "SELECT DISTINCT DatePoint, Roomno, SN, em_month FROM electricity";
     $result = $conn->query($sql);
 
     $data = [];

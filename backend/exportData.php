@@ -16,10 +16,10 @@ if ($rowCheck['count'] == 0) {
 }
 
 // ดึงข้อมูล
-$sql = "SELECT DatePoint, Roomno, SN, em_month 
+$sql = "SELECT DISTINCT DatePoint, Roomno, SN, em_month 
         FROM electricity 
         WHERE DatePoint BETWEEN '$startDate' AND '$endDate' 
-        ORDER BY SN ASC"; // เปลี่ยนจาก DESC เป็น ASC
+        ORDER BY SN ASC";
 
 $result = $conn->query($sql);
 

@@ -1,4 +1,3 @@
-// ลบฟังก์ชัน openExportModal ออก
 // ฟังก์ชัน Export ข้อมูล
 function exportData() {
     // สร้าง URL สำหรับส่งคำร้องขอไปยัง PHP

@@ -1,8 +1,10 @@
 <?php
 include('connect.php');
 $conn = dbconnect();
-header('Content-Type: application/json'); 
-header('Access-Control-Allow-Origin: *'); 
+
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -20,7 +22,7 @@ try {
             exit;
         }
 
-        $stmt = $conn->prepare("SELECT Roomno, SN FROM electricity WHERE em_sum = ?");
+        $stmt = $conn->prepare("SELECT Roomno, SN FROM electricity WHERE SN = ?");
         $stmt->bind_param("s", $qrcode);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
             "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
         ];
-        return months[monthIndex];
+        return months[(monthIndex + 12) % 12];
     }
 
     // เปลี่ยนชื่อคอลัมน์ให้แสดงเดือน
@@ -36,11 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
         const thElements = tableHead.querySelectorAll("th");
-        thElements[3].textContent = `เดือน ${monthNames[0]}`;
-        thElements[4].textContent = `เดือน ${monthNames[1]}`;
-        thElements[5].textContent = `เดือน ${monthNames[2]}`;
-        thElements[6].textContent = `เดือน ${monthNames[3]}`;
-        thElements[7].textContent = `เดือน ${monthNames[4]}`;
+        thElements[4].textContent = `เดือน ${monthNames[0]}`;
+        thElements[5].textContent = `เดือน ${monthNames[1]}`;
+        thElements[6].textContent = `เดือน ${monthNames[2]}`;
+        thElements[7].textContent = `เดือน ${monthNames[3]}`;
+        thElements[8].textContent = `เดือน ${monthNames[4]}`;
     }
 
     updateTableHeaders();
@@ -68,11 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
     
-
     function renderTable(data) {
         if (data.length > 0) {
+            data.sort((a, b) => a.Roomno.localeCompare(b.Roomno));
             tableBody.innerHTML = "";
-            data.forEach(row => {
+            data.forEach((row, index) => {
                 let formattedDate = "";
                 if (row.DatePoint && row.DatePoint !== '0000-00-00 00:00:00') {
                     const timestamp = new Date(row.DatePoint);
@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
+                    <td>${index + 1}</td>
                     <td>${formattedDate}</td> 
                     <td>${row.Roomno}</td>
                     <td>${row.SN}</td>
@@ -138,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("เกิดข้อผิดพลาดในการค้นหา");
+                // alert("เกิดข้อผิดพลาดในการค้นหา");
             });
     });
 

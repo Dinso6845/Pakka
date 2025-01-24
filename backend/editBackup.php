@@ -43,7 +43,7 @@ if (!empty($search)) {
             ) / 4
         ) * 100 AS percentage_change
     FROM ewgreport m
-    LEFT JOIN electricity e ON m.SN = e.SN
+    LEFT JOIN electricity e ON m.SN = e.SN AND m.Roomno = e.Roomno
     WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?
     ";
     
@@ -102,9 +102,8 @@ if (!empty($search)) {
             ) / 4
         ) * 100 AS percentage_change
     FROM ewgreport m
-    LEFT JOIN electricity e ON m.SN = e.SN
-    WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?
-    ";
+    LEFT JOIN electricity e ON m.SN = e.SN AND m.Roomno = e.Roomno
+    WHERE e.Roomno LIKE ? OR e.SN LIKE ? OR m.Meter09 LIKE ? OR m.Meter10 LIKE ? OR m.Meter11 LIKE ? OR m.Meter12 LIKE ? OR e.em_month LIKE ?";
 
     if ($stmt = $conn->prepare($sql)) {
         $searchParam = '%'; // ถ้าไม่มีคำค้นหาให้ค้นหาทุกอย่าง
