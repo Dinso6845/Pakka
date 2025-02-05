@@ -1,37 +1,43 @@
 /* คอนเทนเนอร์ที่บรรจุช่องค้นหาและปุ่ม */
 .search-container {
     display: flex;
-    align-items: center; /* จัดตำแหน่งแนวตั้ง */
-    justify-content: flex-end; /* ดันกล่องไปทางขวา */
-    gap: 10px; /* ระยะห่างระหว่างช่องค้นหาและปุ่ม */
-    margin-right: 20px; /* เพิ่มระยะห่างจากขอบจอ */
-    max-width: calc(100% - 40px); /* จำกัดความกว้างของกล่องรวมไม่ให้เกินขอบ */
+    align-items: center;
+    /* จัดตำแหน่งแนวตั้ง */
+    justify-content: flex-end;
+    /* ดันกล่องไปทางขวา */
+    gap: 10px;
+    /* ระยะห่างระหว่างช่องค้นหาและปุ่ม */
+    margin-right: 20px;
+    /* เพิ่มระยะห่างจากขอบจอ */
+    max-width: calc(100% - 40px);
+    /* จำกัดความกว้างของกล่องรวมไม่ให้เกินขอบ */
 }
-
-
 
 /* ปุ่ม "กลับไปหน้าหลัก" */
 .back-btn {
     padding: 12px 25px;
     background-color: #FFD700;
-    color: #000000; /* สีฟ้า */
+    color: #000000;
     font-weight: bold;
-    text-decoration: none; /* เอาลิงก์ออก */
+    text-decoration: none;
+    /* เอาลิงก์ออก */
     border-radius: 10px;
-    border: 2px solid #FFD700; /* ใส่กรอบสีทอง */
-    display: inline-block; /* ให้ทำงานเหมือนปุ่ม */
+    border: 2px solid #FFD700;
+    /* ใส่กรอบสีทอง */
+    display: inline-block;
+    /* ให้ทำงานเหมือนปุ่ม */
     transition: background-color 0.3s, transform 0.3s;
-    margin-right: auto; /* ทำให้ปุ่มกลับอยู่ทางซ้ายสุด */
+    margin-right: auto;
+    /* ทำให้ปุ่มกลับอยู่ทางซ้ายสุด */
 }
 
 .back-btn:hover {
     background-color: #FFD700;
     color: white;
     transform: scale(1.05);
-    border-color: #ffcc00; /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
+    border-color: #ffcc00;
+    /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
 }
-
-
 
 /* ปุ่มค้นหา */
 #searchButton {
@@ -40,15 +46,18 @@
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 30px;  /* มุมโค้งมน */
+    border-radius: 30px;
+    /* มุมโค้งมน */
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-left: 10px; /* ให้ปุ่มค้นหาห่างจากช่องค้นหา */
+    margin-left: 10px;
+    /* ให้ปุ่มค้นหาห่างจากช่องค้นหา */
 }
 
 #searchButton:hover {
     background-color: #0056b3;
-    transform: scale(1.1);  /* ขยายขนาดเล็กน้อยขณะ hover */
+    transform: scale(1.1);
+    /* ขยายขนาดเล็กน้อยขณะ hover */
 }
 
 #searchButton:focus {
@@ -74,10 +83,12 @@ table {
     border-collapse: collapse;
     margin: 20px auto;
     background: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* เงาตาราง */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /* เงาตาราง */
 }
 
-th, td {
+th,
+td {
     padding: 12px;
     text-align: center;
     border: 1px solid #ddd;
@@ -94,7 +105,8 @@ tr:nth-child(even) {
 }
 
 /* เพิ่มการแสดงเงาที่ปุ่ม */
-.edit-btn, .delete-btn {
+.edit-btn,
+.delete-btn {
     padding: 10px 20px;
     border: none;
     border-radius: 50px;
@@ -112,43 +124,53 @@ tr:nth-child(even) {
     color: white;
 }
 
-.edit-btn:hover, .delete-btn:hover {
+.edit-btn:hover,
+.delete-btn:hover {
     opacity: 0.8;
-    transform: scale(1.1);  /* ขยายขนาดเล็กน้อยขณะ hover */
+    transform: scale(1.1);
+    /* ขยายขนาดเล็กน้อยขณะ hover */
 }
 
 /* การจัดข้อความให้อยู่ตรงกลาง */
 h1 {
-    text-align: center; /* จัดข้อความไปกลาง */
+    text-align: center;
+    /* จัดข้อความไปกลาง */
     color: #333;
     margin-top: 20px;
-    font-size: 2rem; /* ขนาดข้อความ */
+    font-size: 2rem;
+    /* ขนาดข้อความ */
 }
 
 /* ป๊อปอัพพื้นหลัง */
 .modal {
-    display: none; /* ซ่อน Modal เริ่มต้น */
+    display: none;
+    /* ซ่อน Modal เริ่มต้น */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* มืดลงกว่าเดิมเพื่อเน้นป๊อปอัพ */
-    animation: fadeIn 0.5s ease-out; /* การแสดงผลแบบค่อยๆ fade in */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* มืดลงกว่าเดิมเพื่อเน้นป๊อปอัพ */
+    animation: fadeIn 0.5s ease-out;
+    /* การแสดงผลแบบค่อยๆ fade in */
 }
 
 /* ส่วนเนื้อหาภายใน Modal */
 .modal-content {
-    background: linear-gradient(45deg, #f9d423, #00ccff); /* สีเหลืองกับฟ้าใน gradient */
+    background: linear-gradient(45deg, #f9d423, #00ccff);
+    /* สีเหลืองกับฟ้าใน gradient */
     margin: 10% auto;
     padding: 40px;
     border-radius: 15px;
     width: 60%;
     max-width: 600px;
-    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2); /* เงา 3D */
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+    /* เงา 3D */
     transform: scale(0.8);
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* การขยายและแอนิเมชั่น */
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* การขยายและแอนิเมชั่น */
     transition: transform 0.3s ease;
 }
 
@@ -158,6 +180,7 @@ h1 {
         transform: scale(0.8);
         opacity: 0;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -169,6 +192,7 @@ h1 {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -185,8 +209,10 @@ h1 {
 }
 
 .close:hover {
-    color: #f9d423; /* สีเหลือง */
-    transform: rotate(180deg); /* หมุนปุ่ม */
+    color: #f9d423;
+    /* สีเหลือง */
+    transform: rotate(180deg);
+    /* หมุนปุ่ม */
 }
 
 /* การแสดงผลข้อความในป๊อปอัพ */
@@ -196,22 +222,27 @@ h1 {
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* เพิ่มเงาข้อความ */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /* เพิ่มเงาข้อความ */
 }
 
 /* ฟอร์มและอินพุต */
-.modal-content input, .modal-content textarea {
-    width: 100%; /* เปลี่ยนเป็น 100% เพื่อให้พอดีกับ modal */
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    /* เปลี่ยนเป็น 100% เพื่อให้พอดีกับ modal */
     padding: 10px;
     font-size: 0.9rem;
     border-radius: 8px;
     border: 1px solid #ddd;
     margin-bottom: 15px;
-    box-sizing: border-box; /* ทำให้ padding และ border รวมอยู่ในความกว้าง */
+    box-sizing: border-box;
+    /* ทำให้ padding และ border รวมอยู่ในความกว้าง */
     transition: all 0.3s ease;
 }
 
-.modal-content input:focus, .modal-content textarea:focus {
+.modal-content input:focus,
+.modal-content textarea:focus {
     border-color: #008cff;
     box-shadow: 0 0 6px rgba(0, 123, 255, 0.7);
     outline: none;
@@ -221,7 +252,8 @@ h1 {
 .modal-content button {
     width: 100%;
     padding: 15px;
-    background-color: #FFD700; /* สีฟ้า */
+    background-color: #FFD700;
+    /* สีฟ้า */
     color: rgb(0, 0, 0);
     font-size: 1.2rem;
     border: none;
@@ -231,8 +263,10 @@ h1 {
 }
 
 .modal-content button:hover {
-    background-color: #FFD700; /* สีฟ้าที่เข้มขึ้น */
-    transform: scale(1.05);  /* ขยายขนาด */
+    background-color: #FFD700;
+    /* สีฟ้าที่เข้มขึ้น */
+    transform: scale(1.05);
+    /* ขยายขนาด */
 }
 
 .modal-content button:focus {
@@ -241,7 +275,8 @@ h1 {
 
 /* ปุ่มกลับ */
 .back-button {
-    background-color: #ffc107; /* สีเหลือง */
+    background-color: #ffc107;
+    /* สีเหลือง */
     border: none;
     color: #212529;
     padding: 10px 20px;
@@ -253,7 +288,8 @@ h1 {
 }
 
 .back-button:hover {
-    background-color: #e0a800; /* สีเหลืองเข้ม */
+    background-color: #e0a800;
+    /* สีเหลืองเข้ม */
 }
 
 /* ชื่อหัวข้อ */
@@ -261,9 +297,10 @@ h1 {
     font-size: 20px;
     color: #343a40;
     font-weight: bold;
-    margin: 0 auto; /* จัดให้อยู่ตรงกลาง */
+    margin: 0 auto;
+    /* จัดให้อยู่ตรงกลาง */
     text-align: center;
-    flex-grow: 1; /* ขยายเต็มพื้นที่ที่เหลือ */
+    flex-grow: 1;
 }
 
 #searchInput {
@@ -271,17 +308,20 @@ h1 {
     font-size: 16px;
     border: 1px solid #ced4da;
     border-radius: 5px;
-    width: 200px; /* ความกว้างของช่องค้นหา */
+    width: 200px;
+    /* ความกว้างของช่องค้นหา */
     transition: border-color 0.3s ease;
 }
 
 #searchInput:focus {
-    border-color: #007bff; /* เส้นขอบเปลี่ยนเป็นสีฟ้า */
+    border-color: #007bff;
+    /* เส้นขอบเปลี่ยนเป็นสีฟ้า */
     outline: none;
 }
 
 button {
-    background-color: #007bff; /* สีฟ้า */
+    background-color: #007bff;
+    /* สีฟ้า */
     border: none;
     color: white;
     padding: 8px 16px;
@@ -292,8 +332,10 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3; /* สีฟ้าเข้ม */
+    background-color: #0056b3;
+    /* สีฟ้าเข้ม */
 }
+
 /* Sticky Bar */
 #sticky-bar {
     position: fixed;
@@ -309,17 +351,20 @@ button:hover {
     justify-content: space-between;
     padding: 10px 20px;
     font-family: 'Arial', sans-serif;
-    height: 60px; /* ระบุความสูงชัดเจน */
+    height: 60px;
+    /* ระบุความสูงชัดเจน */
 }
 
 /* ดันเนื้อหาด้านล่างลง */
 table {
-    margin-top: 95px; /* เว้นระยะห่างจาก Sticky Bar */
+    margin-top: 95px;
+    /* เว้นระยะห่างจาก Sticky Bar */
     width: 100%;
     border-collapse: collapse;
 }
 
-table th, table td {
+table th,
+table td {
     border: 1px solid #c7c7c7;
     padding: 10px;
     text-align: center;
@@ -345,7 +390,8 @@ thead th {
 
 /* ส่วนเนื้อหาภายใน Modal */
 #deleteModal .modal-content {
-    background: #f44336; /* ใช้สีแดงที่เด่น */
+    background: #f44336;
+    /* ใช้สีแดงที่เด่น */
     margin: 10% auto;
     padding: 40px;
     border-radius: 15px;
@@ -362,6 +408,7 @@ thead th {
         transform: scale(0.8);
         opacity: 0;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -373,6 +420,7 @@ thead th {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -398,7 +446,8 @@ thead th {
 
 /* ปุ่มยืนยันการลบ */
 #deleteConfirmBtn {
-    background-color: #d32f2f; /* สีแดงเข้ม */
+    background-color: #d32f2f;
+    /* สีแดงเข้ม */
     color: white;
     padding: 12px 30px;
     font-size: 1.2rem;
@@ -410,7 +459,8 @@ thead th {
 }
 
 #deleteConfirmBtn:hover {
-    background-color: #b71c1c; /* สีแดงเข้มขึ้น */
+    background-color: #b71c1c;
+    /* สีแดงเข้มขึ้น */
     transform: scale(1.05);
 }
 
@@ -446,20 +496,27 @@ thead th {
     padding: 12px 25px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #FFD700; /* สีทอง */
-    color: black; /* สีข้อความ */
-    border: 2px solid #FFD700; /* กรอบสีทอง */
-    border-radius: 10px; /* มุมโค้งมน */
+    background-color: #FFD700;
+    /* สีทอง */
+    color: black;
+    /* สีข้อความ */
+    border: 2px solid #FFD700;
+    /* กรอบสีทอง */
+    border-radius: 10px;
+    /* มุมโค้งมน */
     cursor: pointer;
     transition: all 0.3s ease;
     margin-left: 3px;
 }
 
 #backupButton:hover {
-    background-color: #ffcc00; /* สีทองเข้มขึ้นเมื่อ hover */
+    background-color: #ffcc00;
+    /* สีทองเข้มขึ้นเมื่อ hover */
     color: white;
-    transform: scale(1.05); /* ขยายขนาดเล็กน้อยขณะ hover */
-    border-color: #ffcc00; /* กรอบสีทองเข้มขึ้น */
+    transform: scale(1.05);
+    /* ขยายขนาดเล็กน้อยขณะ hover */
+    border-color: #ffcc00;
+    /* กรอบสีทองเข้มขึ้น */
 }
 
 #backupButton:focus {
@@ -467,7 +524,8 @@ thead th {
 }
 
 #backupButton:active {
-    background-color: #e6b800; /* สีทองเข้มเมื่อคลิก */
+    background-color: #e6b800;
+    /* สีทองเข้มเมื่อคลิก */
 }
 
 .overlay {
@@ -483,14 +541,14 @@ thead th {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.3s;
-  }
-  
-  .overlay.active {
+}
+
+.overlay.active {
     visibility: visible;
     opacity: 1;
-  }
-  
-  .popup {
+}
+
+.popup {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -498,39 +556,274 @@ thead th {
     text-align: center;
     max-width: 400px;
     width: 90%;
-  }
-  
-  .popup h2 {
+}
+
+.popup h2 {
     margin: 0 0 10px;
-  }
-  
-  .popup p {
+}
+
+.popup p {
     margin: 0 0 20px;
     color: #555;
-  }
-  
-  .popup .buttons {
+}
+
+.popup .buttons {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .popup button {
+}
+
+.popup button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .popup button.confirm {
+}
+
+.popup button.confirm {
     background-color: #4caf50;
     color: white;
-  }
-  
-  .popup button.cancel {
+}
+
+.popup button.cancel {
     background-color: #f44336;
     color: white;
-  }
-  
-  .popup button:hover {
+}
+
+.popup button:hover {
     opacity: 0.9;
-  }
+}
+
+/* ป๊อปอัพพื้นหลัง */
+.modal-export {
+    display: none;
+    /* ซ่อน Modal เริ่มต้น */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* มืดลงกว่าเดิมเพื่อเน้นป๊อปอัพ */
+    animation: fadeIn 0.5s ease-out;
+    /* การแสดงผลแบบค่อยๆ fade in */
+}
+
+/* ส่วนเนื้อหาภายใน Modal */
+.modal-content {
+    background: linear-gradient(45deg, #f9d423, #00ccff);
+    /* สีเหลืองกับฟ้าใน gradient */
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 15px;
+    width: 60%;
+    max-width: 600px;
+    box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+    /* เงา 3D */
+    transform: scale(0.8);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    /* การขยายและแอนิเมชั่น */
+    transition: transform 0.3s ease;
+}
+
+/* ปุ่มปิด */
+.close-export {
+    color: #fff;
+    float: right;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-export:hover {
+    color: #f9d423;
+    /* สีเหลือง */
+    transform: rotate(180deg);
+    /* หมุนปุ่ม */
+}
+
+@media (max-width: 786px) {
+    .name-page {
+        width: 150px;
+        color: white;
+        text-align: center;
+        /* จัดข้อความไปกลาง */
+        font-size: 10px;
+        /* ขนาดฟอนต์ */
+        margin: 5px 0;
+        /* เพิ่มระยะห่างด้านบนและล่าง */
+    }
+
+    #sticky-bar {
+        position: fixed;
+        width: 100%;
+        background-color: #6b6b6b;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-family: 'Arial', sans-serif;
+        height: auto;
+
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* จัดตำแหน่งกลาง */
+        gap: 10px;
+        margin-top: 10px;
+        /* เพิ่มระยะห่างด้านบน */
+        max-width: calc(100% - 40px);
+    }
+
+    /* ดันเนื้อหาด้านล่างลง */
+    table {
+        margin-top: 180px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead th {
+        background-color: #FFD700;
+        font-weight: bold;
+        font-size: 11px;
+        /* ปรับขนาดฟอนต์ให้เล็กลง */
+    }
+
+    table td {
+        border: 1px solid #c7c7c7;
+        padding: 9px;
+        text-align: center;
+        word-wrap: break-word;
+    }
+
+    thead th {
+        background-color: #FFD700;
+        font-weight: bold;
+    }
+
+    .table-container {
+        overflow-x: auto;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 5px;
+    }
+
+    .edit-btn {
+        background-color: #2196F3;
+        color: white;
+    }
+
+    .delete-btn {
+        background-color: #f44336;
+        color: white;
+    }
+
+    .edit-btn:hover,
+    .delete-btn:hover {
+        opacity: 0.8;
+        transform: scale(1.1);
+        /* ขยายขนาดเล็กน้อยขณะ hover */
+    }
+
+    .button-more {
+        align-items: flex-start;
+    }
+
+    .back-btn {
+        padding: 12px 10px;
+        background-color: #FFD700;
+        color: #000000;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 10px;
+        border: 2px solid #FFD700;
+        display: inline-block;
+        transition: background-color 0.3s, transform 0.3s;
+        margin-right: auto;
+    }
+
+    .back-btn:hover {
+        background-color: #FFD700;
+        color: white;
+        transform: scale(1.05);
+        border-color: #ffcc00;
+        /* ทำกรอบให้เข้มขึ้นเวลาที่ hover */
+    }
+
+    /* ป๊อปอัพพื้นหลัง */
+    .modal-export {
+        display: none;
+        /* ซ่อน Modal เริ่มต้น */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        /* มืดลงกว่าเดิมเพื่อเน้นป๊อปอัพ */
+        animation: fadeIn 0.5s ease-out;
+        /* การแสดงผลแบบค่อยๆ fade in */
+    }
+
+    /* ส่วนเนื้อหาภายใน Modal */
+    .modal-content {
+        background: linear-gradient(45deg, #f9d423, #00ccff);
+        /* สีเหลืองกับฟ้าใน gradient */
+        margin: 10% auto;
+        padding: 40px;
+        border-radius: 15px;
+        width: 60%;
+        max-width: 600px;
+        box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.2);
+        /* เงา 3D */
+        transform: scale(0.8);
+        animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        /* การขยายและแอนิเมชั่น */
+        transition: transform 0.3s ease;
+        margin-top: 180px;
+    }
+
+    /* การแสดงผลข้อความในป๊อปอัพ */
+.modal-content h2 {
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /* เพิ่มเงาข้อความ */
+}
+
+    /* ปุ่มปิด */
+    .close-export {
+        color: #fff;
+        float: right;
+        font-size: 300px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .close-export:hover {
+        color: #f9d423;
+        /* สีเหลือง */
+        transform: rotate(180deg);
+        /* หมุนปุ่ม */
+    }
+}

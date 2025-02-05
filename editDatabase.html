@@ -10,15 +10,13 @@
 </head>
 
 <body>
-    <!-- ช่องค้นหา -->
     <div id="sticky-bar">
-        <div>
+        <div class="button-more">
             <a href="data.html" class="back-btn">เพิ่มข้อมูล</a>
             <a href="#" class="back-btn" onclick="openExportModal()">Export</a>
-            <!-- <button id="backupButton">ส่งข้อมูล</button> -->
             <a href="editBackup.html" class="back-btn">หน้าแสดงข้อมูล</a>
         </div>
-        <div>
+        <div class="name-page">
             <h2>จัดการข้อมูลไฟฟ้า</h2>
         </div>
         <div>
@@ -56,7 +54,7 @@
             <span class="close">&times;</span>
 
             <h2>แก้ไขข้อมูล</h2>
-            
+
             <form id="editForm">
                 <input type="hidden" id="index" name="index">
                 <div class="form-group">
@@ -77,22 +75,22 @@
     </div>
 
     <!-- Modal สำหรับยืนยันการลบข้อมูล -->
-<div id="deleteModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="deleteCancelBtn">&times;</span>
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="deleteCancelBtn">&times;</span>
 
-        <h2>ยืนยันการลบข้อมูล</h2>
-        <p>คุณต้องการลบข้อมูลนี้ใช่หรือไม่?</p>
-        <button id="deleteConfirmBtn">ยืนยัน</button>
-        <button id="deleteCancelBtn">ยกเลิก</button>
+            <h2>ยืนยันการลบข้อมูล</h2>
+            <p>คุณต้องการลบข้อมูลนี้ใช่หรือไม่?</p>
+            <button id="deleteConfirmBtn">ยืนยัน</button>
+            <button id="deleteCancelBtn">ยกเลิก</button>
+        </div>
     </div>
-</div>
 
 
     <!-- Modal สำหรับ Export ข้อมูล -->
-    <div id="exportModal" class="modal">
+    <div id="exportModal" class="modal-export">
         <div class="modal-content">
-            <span class="close" onclick="closeExportModal()">&times;</span>
+            <span class="close-export" onclick="closeExportModal()">&times;</span>
 
             <h2>เลือกวันที่สำหรับส่งออกข้อมูล</h2>
             <form id="exportForm">
@@ -124,4 +122,5 @@
     <script src="editDatabase.js"></script>
     <!-- <script src="backup.js"></script> -->
 </body>
+
 </html>

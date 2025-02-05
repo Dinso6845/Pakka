@@ -9,14 +9,19 @@ body {
 
 /* แถบ Navbar */
 .navbar {
-    background-color: #FFD700; /* สีเหลืองทอง */
-    padding: 10px 0;
+    width: 100%;
+    background-color: #FFD700; 
+    padding: 10px;
     text-align: center;
     color: #000; /* สีตัวอักษรดำ */
     font-size: 24px; /* เพิ่มขนาดฟอนต์ */
     font-weight: bold; /* ตัวหนา */
     text-transform: uppercase; /* ตัวอักษรพิมพ์ใหญ่ทั้งหมด */
     box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5); /* เงาสีเหลือง */
+    margin: 0; /* ลบ margin เพื่อให้เต็มความกว้าง */
+    box-sizing: border-box; /* ใช้ box-sizing เพื่อให้การคำนวณขนาดถูกต้อง */
+    justify-content: center;
+    align-items: center;
 }
 
 /* กล่องคอนเทนเนอร์ */
@@ -117,14 +122,15 @@ button[type="submit"]:active {
 }
 
 /* สำหรับมือถือ */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
     .container {
-        width: 100%; /* ปรับขนาดให้พอดีกับหน้าจอมือถือ */
-        padding: 15px; /* ลด padding เพื่อให้พอดีกว่าเดิม */
+        width: auto; /* ปรับขนาดให้พอดีกับหน้าจอมือถือ */
+        padding: 10px; /* ลด padding เพื่อให้พอดีกว่าเดิม */
+        margin: 0; /* ลบ margin เพื่อให้พอดีกับหน้าจอ */
     }
 
     button[type="submit"] {
         font-size: 18px; /* ขนาดฟอนต์สำหรับปุ่ม */
-        padding: 12px; /* ลด padding ของปุ่ม */
+        padding: 10px; /* ลด padding ของปุ่ม */
     }
 }
