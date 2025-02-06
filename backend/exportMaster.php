@@ -55,28 +55,28 @@ if ($stmt = $conn->prepare($sql)) {
         header("Expires: 0");
 
         $monthNames = [
-            '12' => 'ธันวาคม',
-            '11' => 'พฤศจิกายน',
+            '1' => 'มกราคม',
+            '2' => 'กุมภาพันธ์',
+            '3' => 'มีนาคม',
+            '4' => 'เมษายน',
+            '5' => 'พฤษภาคม',
+            '6' => 'มิถุนายน',
+            '7' => 'กรกฎาคม',
+            '8' => 'สิงหาคม',
+            '9' => 'กันยายน',
             '10' => 'ตุลาคม',
-            '9'  => 'กันยายน',
-            '8'  => 'สิงหาคม',
-            '7'  => 'กรกฎาคม',
-            '6'  => 'มิถุนายน',
-            '5'  => 'พฤษภาคม',
-            '4'  => 'เมษายน',
-            '3'  => 'มีนาคม',
-            '2'  => 'กุมภาพันธ์',
-            '1'  => 'มกราคม'
+            '11' => 'พฤศจิกายน',
+            '12' => 'ธันวาคม'
         ];
 
         $currentMonth = date('n');
 
         $months = [
-            'เดือนล่าสุด' => $monthNames[$currentMonth],
-            'เดือน'        => $monthNames[$currentMonth - 1] ?? '',
-            'เดือน 1'      => $monthNames[$currentMonth - 2] ?? '',
-            'เดือน 2'      => $monthNames[$currentMonth - 3] ?? '',
-            'เดือน 3'      => $monthNames[$currentMonth - 4] ?? '',
+            $monthNames[($currentMonth - 4 + 11) % 12 + 1],
+            $monthNames[($currentMonth - 3 + 11) % 12 + 1],
+            $monthNames[($currentMonth - 2 + 11) % 12 + 1],
+            $monthNames[($currentMonth - 1 + 11) % 12 + 1],
+            $monthNames[$currentMonth]
         ];
 
         echo "<table border='1'>";
@@ -84,12 +84,12 @@ if ($stmt = $conn->prepare($sql)) {
                 <th>วันที่</th>
                 <th>หมายเลขห้อง</th>
                 <th>หมายเลขเครื่องมิเตอร์</th>
-                <th>{$months['เดือน 3']}</th>
-                <th>{$months['เดือน 2']}</th>
-                <th>{$months['เดือน 1']}</th>
-                <th>{$months['เดือน']}</th>
-                <th>{$months['เดือนล่าสุด']}</th>
-                <th>ผลต่าง</th>
+                <th>{$months[0]}</th>
+                <th>{$months[1]}</th>
+                <th>{$months[2]}</th>
+                <th>{$months[3]}</th>
+                <th>{$months[4]}</th>
+                <th>จำนวนหน่วย</th>
                 <th>การเปลี่ยนแปลง (%)</th>
               </tr>";
 
