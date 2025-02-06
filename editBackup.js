@@ -84,17 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     formattedDate = '00/00/0000';
                 }
-
+                const diff1 = parseFloat(row.Meter10) - parseFloat(row.Meter09);
+                const diff2 = parseFloat(row.Meter11) - parseFloat(row.Meter10);
+                const diff3 = parseFloat(row.Meter12) - parseFloat(row.Meter11);
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td>${formattedDate}</td> 
                     <td>${row.Roomno}</td>
                     <td>${row.SN}</td>
-                    <td>${row.Meter09}</td>
-                    <td>${row.Meter10}</td>
-                    <td>${row.Meter11}</td>
-                    <td>${row.Meter12}</td>
+                    <td>${row.Meter09}</td> 
+                    <td>${row.Meter10} / ${diff1.toFixed(2)}</td>
+                    <td>${row.Meter11} / ${diff2.toFixed(2)}</td>
+                    <td>${row.Meter12} / ${diff3.toFixed(2)}</td>
                     <td>${row.MonthElectricity}</td>
                     <td>${row.unit}</td>
                     <td>${row.percentage_change ? parseFloat(row.percentage_change).toFixed(2) : '0.00'}% 

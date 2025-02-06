@@ -351,13 +351,13 @@ button:hover {
     justify-content: space-between;
     padding: 10px 20px;
     font-family: 'Arial', sans-serif;
-    height: 60px;
+    height: 80px;
     /* ระบุความสูงชัดเจน */
 }
 
 /* ดันเนื้อหาด้านล่างลง */
 table {
-    margin-top: 95px;
+    margin-top: 110px;
     /* เว้นระยะห่างจาก Sticky Bar */
     width: 100%;
     border-collapse: collapse;
@@ -682,7 +682,7 @@ thead th {
 
     /* ดันเนื้อหาด้านล่างลง */
     table {
-        margin-top: 180px;
+        margin-top: 185px;
         width: 100%;
         border-collapse: collapse;
     }
